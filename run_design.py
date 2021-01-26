@@ -12,9 +12,9 @@ from itertools import product
 # Design platform
 ################################
 
-DESIGN = "gcd"
-PLATFORM = "sky130"
-PLATFORM_CONFIG = "config_hd.mk"
+DESIGN = "ibex"
+PLATFORM = "SKY130HD"
+PLATFORM_CONFIG = "config.mk"
 
 TECH_LEF = "platforms/" + PLATFORM + "/lef/sky130_fd_sc_hd.tlef"
 SITE_NAME = "unithd"
@@ -37,13 +37,13 @@ ASPECT_RATIO_STOP = 1.5
 ASPECT_RATIO_STEP = 0.1
 
 # core/dire area
-CORE_DIE_SPACING = 10
-CORE_AREA = 40000 # in um^2 
+CORE_DIE_SPACING = 150
+CORE_AREA = 6000000 # in um^2 
 
 # clock period
 CLK_STEP = 0.001
-CLK_START = 1 # in ns
-CLK_END = 2 # in ns
+CLK_START = 5 # in ns
+CLK_END = 10 # in ns
 # print("CLK_START:{:.3f}ns, CLK_STEP:{:.3f}ns, CLK_END:{:.3f}ns".format(CLK_START, CLK_STEP, CLK_END))
 
 ################################
@@ -206,4 +206,3 @@ for aspect_ratio in np.arange(ASPECT_RATIO_START, ASPECT_RATIO_STOP, ASPECT_RATI
                     shutil.copyfile("./platforms/" + PLATFORM + "/" + PDN_CFG, "data/" + DESIGN + "_UTIL_{:.2f}".format(UTIL) + "_CLK_PERIOD_{:.3f}".format(CLK_PERIOD) + "_ASRATIO_{:.4f}".format(aspect_ratio) + "/" + PDN_CFG)
                     shutil.copyfile("./platforms/" + PLATFORM + "/" + PLATFORM_CONFIG, "data/" + DESIGN + "_UTIL_{:.2f}".format(UTIL) + "_CLK_PERIOD_{:.3f}".format(CLK_PERIOD) + "_ASRATIO_{:.4f}".format(aspect_ratio) + "/" + PLATFORM_CONFIG)
 
-                sys.exit(0)
