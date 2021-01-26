@@ -9,7 +9,7 @@ The run_design.py script executes the following steps:
 
 The collect_data.py scirpt extracts the tns/wns/power values from the data folder created by run_design.py
 
-The run_design.py and collect_data.py should be placed inside the OpenROAD-flow/flow folder
+The run_design.py and collect_data.py should be placed inside the OpenROAD-flow/flow folder, and this var needs to be added at the beginning of the Makefile: `DESIGN_CONFIG=@1`
 
 The run_design.py script has these parameters can be modified:
 
