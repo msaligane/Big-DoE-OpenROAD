@@ -1,6 +1,17 @@
 # Big-DoE-OpenROAD
 
-The run_design.py script modifies the pdn.cfg, config.mk files inside the platform folder (for sweeping power stripe width/pitch, and utilization). The script creates NUM_THREAD different Makefiles/design folders, each Makefile is pointing to a different design folder. Each design folder has a different clock period and core/die areas according to the aspect ratio and area defined in the script. The script starts NUM_THREAD processes in parallel. After all processes are finished, the results/logs/reports/objects/designs folders and the modified pdn.cfg and config.mk files are moved into a new data folder for future extraction. The run_design.py script has these parameters can be modified.
+The run_design.py script will do the follow steps: 
+1. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
+2. Create NUM_THREAD design folders, each with a different clock period and core/die areas.
+3. Create NUM_THREAD different Makefiles.
+4. Start NUM_THREAD processes.
+5. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
+
+The collect_data.py scirpt extracts the tns/wns/power values from the data folder created by run_design.py
+
+The run_design.py and collect_data.py should be placed inside the OpenROAD-flow/flow folder
+
+The run_design.py script has these parameters can be modified:
 
 ```python
 #Design that will be sweeped
@@ -29,8 +40,7 @@ ASPECT_RATIO_STEP = 0.1
 #Distance between the CORE_AREA and DIE_AREA
 CORE_DIE_SPACING = 10
 
-Core area, defined in um^2
-
+#Core area, defined in um^2
 CORE_AREA = 1000000
 
 UTIL_START = 0.6
