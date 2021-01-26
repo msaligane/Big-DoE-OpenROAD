@@ -1,0 +1,2592 @@
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.55
+tns: -64.21
+wns: -2.38
+internal_poewr: 4.08e-03
+switching_power: 2.79e-03
+leakage_power: 2.56e-09
+total_power: 6.87e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.60
+tns: -62.46
+wns: -2.33
+internal_poewr: 3.74e-03
+switching_power: 2.56e-03
+leakage_power: 2.56e-09
+total_power: 6.30e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.65
+tns: -60.71
+wns: -2.28
+internal_poewr: 3.45e-03
+switching_power: 2.36e-03
+leakage_power: 2.56e-09
+total_power: 5.81e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.70
+tns: -58.96
+wns: -2.23
+internal_poewr: 3.20e-03
+switching_power: 2.19e-03
+leakage_power: 2.56e-09
+total_power: 5.40e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.75
+tns: -57.21
+wns: -2.18
+internal_poewr: 2.99e-03
+switching_power: 2.05e-03
+leakage_power: 2.56e-09
+total_power: 5.04e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.80
+tns: -55.46
+wns: -2.13
+internal_poewr: 2.80e-03
+switching_power: 1.92e-03
+leakage_power: 2.56e-09
+total_power: 4.72e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.85
+tns: -53.71
+wns: -2.08
+internal_poewr: 2.64e-03
+switching_power: 1.81e-03
+leakage_power: 2.56e-09
+total_power: 4.44e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.90
+tns: -51.96
+wns: -2.03
+internal_poewr: 2.49e-03
+switching_power: 1.71e-03
+leakage_power: 2.56e-09
+total_power: 4.20e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_0.95
+tns: -50.21
+wns: -1.98
+internal_poewr: 2.36e-03
+switching_power: 1.62e-03
+leakage_power: 2.56e-09
+total_power: 3.98e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.00
+tns: -48.46
+wns: -1.93
+internal_poewr: 2.24e-03
+switching_power: 1.54e-03
+leakage_power: 2.56e-09
+total_power: 3.78e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.05
+tns: -46.71
+wns: -1.88
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.56e-09
+total_power: 3.60e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.10
+tns: -44.96
+wns: -1.83
+internal_poewr: 2.04e-03
+switching_power: 1.40e-03
+leakage_power: 2.56e-09
+total_power: 3.43e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.15
+tns: -43.21
+wns: -1.78
+internal_poewr: 1.95e-03
+switching_power: 1.34e-03
+leakage_power: 2.56e-09
+total_power: 3.29e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.20
+tns: -41.46
+wns: -1.73
+internal_poewr: 1.87e-03
+switching_power: 1.28e-03
+leakage_power: 2.56e-09
+total_power: 3.15e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.25
+tns: -39.71
+wns: -1.68
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.56e-09
+total_power: 3.02e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.30
+tns: -37.96
+wns: -1.63
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.56e-09
+total_power: 2.91e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.35
+tns: -36.21
+wns: -1.58
+internal_poewr: 1.66e-03
+switching_power: 1.14e-03
+leakage_power: 2.56e-09
+total_power: 2.80e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.40
+tns: -34.46
+wns: -1.53
+internal_poewr: 1.60e-03
+switching_power: 1.10e-03
+leakage_power: 2.56e-09
+total_power: 2.70e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.45
+tns: -32.71
+wns: -1.48
+internal_poewr: 1.55e-03
+switching_power: 1.06e-03
+leakage_power: 2.56e-09
+total_power: 2.61e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.50
+tns: -30.96
+wns: -1.43
+internal_poewr: 1.49e-03
+switching_power: 1.02e-03
+leakage_power: 2.56e-09
+total_power: 2.52e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.55
+tns: -29.21
+wns: -1.38
+internal_poewr: 1.45e-03
+switching_power: 9.91e-04
+leakage_power: 2.56e-09
+total_power: 2.44e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.60
+tns: -27.46
+wns: -1.33
+internal_poewr: 1.40e-03
+switching_power: 9.60e-04
+leakage_power: 2.56e-09
+total_power: 2.36e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.65
+tns: -25.71
+wns: -1.28
+internal_poewr: 1.36e-03
+switching_power: 9.31e-04
+leakage_power: 2.56e-09
+total_power: 2.29e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.70
+tns: -23.96
+wns: -1.23
+internal_poewr: 1.32e-03
+switching_power: 9.04e-04
+leakage_power: 2.56e-09
+total_power: 2.22e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.75
+tns: -22.26
+wns: -1.18
+internal_poewr: 1.28e-03
+switching_power: 8.78e-04
+leakage_power: 2.56e-09
+total_power: 2.16e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.80
+tns: -20.56
+wns: -1.13
+internal_poewr: 1.25e-03
+switching_power: 8.54e-04
+leakage_power: 2.56e-09
+total_power: 2.10e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.85
+tns: -18.86
+wns: -1.08
+internal_poewr: 1.21e-03
+switching_power: 8.30e-04
+leakage_power: 2.56e-09
+total_power: 2.04e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.90
+tns: -17.16
+wns: -1.03
+internal_poewr: 1.18e-03
+switching_power: 8.09e-04
+leakage_power: 2.56e-09
+total_power: 1.99e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_1.95
+tns: -15.46
+wns: -0.98
+internal_poewr: 1.15e-03
+switching_power: 7.88e-04
+leakage_power: 2.56e-09
+total_power: 1.94e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.00
+tns: -13.76
+wns: -0.93
+internal_poewr: 1.12e-03
+switching_power: 7.68e-04
+leakage_power: 2.56e-09
+total_power: 1.89e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.05
+tns: -12.06
+wns: -0.88
+internal_poewr: 1.09e-03
+switching_power: 7.49e-04
+leakage_power: 2.56e-09
+total_power: 1.84e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.10
+tns: -10.36
+wns: -0.83
+internal_poewr: 1.07e-03
+switching_power: 7.32e-04
+leakage_power: 2.56e-09
+total_power: 1.80e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.15
+tns: -8.68
+wns: -0.78
+internal_poewr: 1.04e-03
+switching_power: 7.15e-04
+leakage_power: 2.56e-09
+total_power: 1.76e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.20
+tns: -7.12
+wns: -0.73
+internal_poewr: 1.02e-03
+switching_power: 6.98e-04
+leakage_power: 2.56e-09
+total_power: 1.72e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.25
+tns: -5.64
+wns: -0.68
+internal_poewr: 9.96e-04
+switching_power: 6.83e-04
+leakage_power: 2.56e-09
+total_power: 1.68e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.30
+tns: -4.38
+wns: -0.63
+internal_poewr: 9.75e-04
+switching_power: 6.68e-04
+leakage_power: 2.56e-09
+total_power: 1.64e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.35
+tns: -3.28
+wns: -0.58
+internal_poewr: 9.54e-04
+switching_power: 6.54e-04
+leakage_power: 2.56e-09
+total_power: 1.61e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.40
+tns: -2.35
+wns: -0.53
+internal_poewr: 9.34e-04
+switching_power: 6.40e-04
+leakage_power: 2.56e-09
+total_power: 1.57e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.45
+tns: -1.60
+wns: -0.48
+internal_poewr: 9.15e-04
+switching_power: 6.27e-04
+leakage_power: 2.56e-09
+total_power: 1.54e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.50
+tns: -0.97
+wns: -0.43
+internal_poewr: 8.97e-04
+switching_power: 6.15e-04
+leakage_power: 2.56e-09
+total_power: 1.51e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.55
+tns: -0.63
+wns: -0.38
+internal_poewr: 8.79e-04
+switching_power: 6.03e-04
+leakage_power: 2.56e-09
+total_power: 1.48e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.60
+tns: -0.46
+wns: -0.33
+internal_poewr: 8.62e-04
+switching_power: 5.91e-04
+leakage_power: 2.56e-09
+total_power: 1.45e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.65
+tns: -0.32
+wns: -0.28
+internal_poewr: 8.46e-04
+switching_power: 5.80e-04
+leakage_power: 2.56e-09
+total_power: 1.43e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.70
+tns: -0.23
+wns: -0.23
+internal_poewr: 8.30e-04
+switching_power: 5.69e-04
+leakage_power: 2.56e-09
+total_power: 1.40e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.75
+tns: -0.18
+wns: -0.18
+internal_poewr: 8.15e-04
+switching_power: 5.59e-04
+leakage_power: 2.56e-09
+total_power: 1.37e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.80
+tns: -0.13
+wns: -0.13
+internal_poewr: 8.01e-04
+switching_power: 5.49e-04
+leakage_power: 2.56e-09
+total_power: 1.35e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.85
+tns: -0.08
+wns: -0.08
+internal_poewr: 7.86e-04
+switching_power: 5.39e-04
+leakage_power: 2.56e-09
+total_power: 1.33e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.90
+tns: -0.03
+wns: -0.03
+internal_poewr: 7.73e-04
+switching_power: 5.30e-04
+leakage_power: 2.56e-09
+total_power: 1.30e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_2.95
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.60e-04
+switching_power: 5.21e-04
+leakage_power: 2.56e-09
+total_power: 1.28e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.00
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.47e-04
+switching_power: 5.12e-04
+leakage_power: 2.56e-09
+total_power: 1.26e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.05
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.35e-04
+switching_power: 5.04e-04
+leakage_power: 2.56e-09
+total_power: 1.24e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.10
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.23e-04
+switching_power: 4.96e-04
+leakage_power: 2.56e-09
+total_power: 1.22e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.15
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.12e-04
+switching_power: 4.88e-04
+leakage_power: 2.56e-09
+total_power: 1.20e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.20
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.00e-04
+switching_power: 4.80e-04
+leakage_power: 2.56e-09
+total_power: 1.18e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.25
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.90e-04
+switching_power: 4.73e-04
+leakage_power: 2.56e-09
+total_power: 1.16e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.30
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.79e-04
+switching_power: 4.66e-04
+leakage_power: 2.56e-09
+total_power: 1.14e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.35
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.69e-04
+switching_power: 4.59e-04
+leakage_power: 2.56e-09
+total_power: 1.13e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.40
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.59e-04
+switching_power: 4.52e-04
+leakage_power: 2.56e-09
+total_power: 1.11e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.45
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.50e-04
+switching_power: 4.45e-04
+leakage_power: 2.56e-09
+total_power: 1.10e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.50
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.40e-04
+switching_power: 4.39e-04
+leakage_power: 2.56e-09
+total_power: 1.08e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.55
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.31e-04
+switching_power: 4.33e-04
+leakage_power: 2.56e-09
+total_power: 1.06e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.60
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.23e-04
+switching_power: 4.27e-04
+leakage_power: 2.56e-09
+total_power: 1.05e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.65
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.14e-04
+switching_power: 4.21e-04
+leakage_power: 2.56e-09
+total_power: 1.04e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.3_CLK_PERIOD_3.70
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.06e-04
+switching_power: 4.15e-04
+leakage_power: 2.56e-09
+total_power: 1.02e-03
+instance count: 8703
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.55
+tns: -68.53
+wns: -2.38
+internal_poewr: 4.06e-03
+switching_power: 2.80e-03
+leakage_power: 2.54e-09
+total_power: 6.86e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.60
+tns: -66.78
+wns: -2.33
+internal_poewr: 3.72e-03
+switching_power: 2.57e-03
+leakage_power: 2.54e-09
+total_power: 6.29e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.65
+tns: -65.03
+wns: -2.28
+internal_poewr: 3.44e-03
+switching_power: 2.37e-03
+leakage_power: 2.54e-09
+total_power: 5.80e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.70
+tns: -63.28
+wns: -2.23
+internal_poewr: 3.19e-03
+switching_power: 2.20e-03
+leakage_power: 2.54e-09
+total_power: 5.39e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.75
+tns: -61.53
+wns: -2.18
+internal_poewr: 2.98e-03
+switching_power: 2.05e-03
+leakage_power: 2.54e-09
+total_power: 5.03e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.80
+tns: -59.78
+wns: -2.13
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.72e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.85
+tns: -58.03
+wns: -2.08
+internal_poewr: 2.63e-03
+switching_power: 1.81e-03
+leakage_power: 2.54e-09
+total_power: 4.44e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.90
+tns: -56.28
+wns: -2.03
+internal_poewr: 2.48e-03
+switching_power: 1.71e-03
+leakage_power: 2.54e-09
+total_power: 4.19e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_0.95
+tns: -54.53
+wns: -1.98
+internal_poewr: 2.35e-03
+switching_power: 1.62e-03
+leakage_power: 2.54e-09
+total_power: 3.97e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.00
+tns: -52.78
+wns: -1.93
+internal_poewr: 2.23e-03
+switching_power: 1.54e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.05
+tns: -51.03
+wns: -1.88
+internal_poewr: 2.13e-03
+switching_power: 1.47e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.10
+tns: -49.28
+wns: -1.83
+internal_poewr: 2.03e-03
+switching_power: 1.40e-03
+leakage_power: 2.54e-09
+total_power: 3.43e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.15
+tns: -47.53
+wns: -1.78
+internal_poewr: 1.94e-03
+switching_power: 1.34e-03
+leakage_power: 2.54e-09
+total_power: 3.28e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.20
+tns: -45.78
+wns: -1.73
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.25
+tns: -44.03
+wns: -1.68
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.02e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.30
+tns: -42.28
+wns: -1.63
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.35
+tns: -40.53
+wns: -1.58
+internal_poewr: 1.65e-03
+switching_power: 1.14e-03
+leakage_power: 2.54e-09
+total_power: 2.79e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.40
+tns: -38.78
+wns: -1.53
+internal_poewr: 1.60e-03
+switching_power: 1.10e-03
+leakage_power: 2.54e-09
+total_power: 2.69e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.45
+tns: -37.03
+wns: -1.48
+internal_poewr: 1.54e-03
+switching_power: 1.06e-03
+leakage_power: 2.54e-09
+total_power: 2.60e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.50
+tns: -35.28
+wns: -1.43
+internal_poewr: 1.49e-03
+switching_power: 1.03e-03
+leakage_power: 2.54e-09
+total_power: 2.52e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.55
+tns: -33.53
+wns: -1.38
+internal_poewr: 1.44e-03
+switching_power: 9.93e-04
+leakage_power: 2.54e-09
+total_power: 2.43e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.60
+tns: -31.78
+wns: -1.33
+internal_poewr: 1.40e-03
+switching_power: 9.62e-04
+leakage_power: 2.54e-09
+total_power: 2.36e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.65
+tns: -30.03
+wns: -1.28
+internal_poewr: 1.35e-03
+switching_power: 9.33e-04
+leakage_power: 2.54e-09
+total_power: 2.29e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.70
+tns: -28.28
+wns: -1.23
+internal_poewr: 1.31e-03
+switching_power: 9.05e-04
+leakage_power: 2.54e-09
+total_power: 2.22e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.75
+tns: -26.58
+wns: -1.18
+internal_poewr: 1.28e-03
+switching_power: 8.79e-04
+leakage_power: 2.54e-09
+total_power: 2.16e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.80
+tns: -24.88
+wns: -1.13
+internal_poewr: 1.24e-03
+switching_power: 8.55e-04
+leakage_power: 2.54e-09
+total_power: 2.10e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.85
+tns: -23.18
+wns: -1.08
+internal_poewr: 1.21e-03
+switching_power: 8.32e-04
+leakage_power: 2.54e-09
+total_power: 2.04e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.90
+tns: -21.48
+wns: -1.03
+internal_poewr: 1.18e-03
+switching_power: 8.10e-04
+leakage_power: 2.54e-09
+total_power: 1.99e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_1.95
+tns: -19.78
+wns: -0.98
+internal_poewr: 1.15e-03
+switching_power: 7.89e-04
+leakage_power: 2.54e-09
+total_power: 1.93e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.00
+tns: -18.08
+wns: -0.93
+internal_poewr: 1.12e-03
+switching_power: 7.70e-04
+leakage_power: 2.54e-09
+total_power: 1.89e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.05
+tns: -16.38
+wns: -0.88
+internal_poewr: 1.09e-03
+switching_power: 7.51e-04
+leakage_power: 2.54e-09
+total_power: 1.84e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.10
+tns: -14.68
+wns: -0.83
+internal_poewr: 1.06e-03
+switching_power: 7.33e-04
+leakage_power: 2.54e-09
+total_power: 1.80e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.15
+tns: -12.98
+wns: -0.78
+internal_poewr: 1.04e-03
+switching_power: 7.16e-04
+leakage_power: 2.54e-09
+total_power: 1.75e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.20
+tns: -11.34
+wns: -0.73
+internal_poewr: 1.02e-03
+switching_power: 7.00e-04
+leakage_power: 2.54e-09
+total_power: 1.71e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.25
+tns: -9.78
+wns: -0.68
+internal_poewr: 9.93e-04
+switching_power: 6.84e-04
+leakage_power: 2.54e-09
+total_power: 1.68e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.30
+tns: -8.35
+wns: -0.63
+internal_poewr: 9.71e-04
+switching_power: 6.69e-04
+leakage_power: 2.54e-09
+total_power: 1.64e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.35
+tns: -7.15
+wns: -0.58
+internal_poewr: 9.51e-04
+switching_power: 6.55e-04
+leakage_power: 2.54e-09
+total_power: 1.61e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.40
+tns: -6.23
+wns: -0.53
+internal_poewr: 9.31e-04
+switching_power: 6.41e-04
+leakage_power: 2.54e-09
+total_power: 1.57e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.45
+tns: -5.33
+wns: -0.48
+internal_poewr: 9.12e-04
+switching_power: 6.28e-04
+leakage_power: 2.54e-09
+total_power: 1.54e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.50
+tns: -4.43
+wns: -0.43
+internal_poewr: 8.94e-04
+switching_power: 6.16e-04
+leakage_power: 2.54e-09
+total_power: 1.51e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.55
+tns: -3.53
+wns: -0.38
+internal_poewr: 8.76e-04
+switching_power: 6.04e-04
+leakage_power: 2.54e-09
+total_power: 1.48e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.60
+tns: -2.63
+wns: -0.33
+internal_poewr: 8.59e-04
+switching_power: 5.92e-04
+leakage_power: 2.54e-09
+total_power: 1.45e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.65
+tns: -1.74
+wns: -0.28
+internal_poewr: 8.43e-04
+switching_power: 5.81e-04
+leakage_power: 2.54e-09
+total_power: 1.42e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.70
+tns: -1.00
+wns: -0.23
+internal_poewr: 8.27e-04
+switching_power: 5.70e-04
+leakage_power: 2.54e-09
+total_power: 1.40e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.75
+tns: -0.56
+wns: -0.18
+internal_poewr: 8.12e-04
+switching_power: 5.60e-04
+leakage_power: 2.54e-09
+total_power: 1.37e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.80
+tns: -0.23
+wns: -0.13
+internal_poewr: 7.98e-04
+switching_power: 5.50e-04
+leakage_power: 2.54e-09
+total_power: 1.35e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.85
+tns: -0.09
+wns: -0.08
+internal_poewr: 7.84e-04
+switching_power: 5.40e-04
+leakage_power: 2.54e-09
+total_power: 1.32e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.90
+tns: -0.03
+wns: -0.03
+internal_poewr: 7.70e-04
+switching_power: 5.31e-04
+leakage_power: 2.54e-09
+total_power: 1.30e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_2.95
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.57e-04
+switching_power: 5.22e-04
+leakage_power: 2.54e-09
+total_power: 1.28e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.00
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.45e-04
+switching_power: 5.13e-04
+leakage_power: 2.54e-09
+total_power: 1.26e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.05
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.32e-04
+switching_power: 5.05e-04
+leakage_power: 2.54e-09
+total_power: 1.24e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.10
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.21e-04
+switching_power: 4.96e-04
+leakage_power: 2.54e-09
+total_power: 1.22e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.15
+tns: 0.00
+wns: 0.00
+internal_poewr: 7.09e-04
+switching_power: 4.89e-04
+leakage_power: 2.54e-09
+total_power: 1.20e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.20
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.98e-04
+switching_power: 4.81e-04
+leakage_power: 2.54e-09
+total_power: 1.18e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.25
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.87e-04
+switching_power: 4.74e-04
+leakage_power: 2.54e-09
+total_power: 1.16e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.31_CLK_PERIOD_3.30
+tns: 0.00
+wns: 0.00
+internal_poewr: 6.77e-04
+switching_power: 4.66e-04
+leakage_power: 2.54e-09
+total_power: 1.14e-03
+instance count: 8670
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.55
+tns: -68.71
+wns: -2.38
+internal_poewr: 4.06e-03
+switching_power: 2.79e-03
+leakage_power: 2.54e-09
+total_power: 6.85e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.60
+tns: -66.96
+wns: -2.33
+internal_poewr: 3.72e-03
+switching_power: 2.56e-03
+leakage_power: 2.54e-09
+total_power: 6.28e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.65
+tns: -65.21
+wns: -2.28
+internal_poewr: 3.44e-03
+switching_power: 2.36e-03
+leakage_power: 2.54e-09
+total_power: 5.80e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.70
+tns: -63.46
+wns: -2.23
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.75
+tns: -61.71
+wns: -2.18
+internal_poewr: 2.98e-03
+switching_power: 2.05e-03
+leakage_power: 2.54e-09
+total_power: 5.02e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.80
+tns: -59.96
+wns: -2.13
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.85
+tns: -58.21
+wns: -2.08
+internal_poewr: 2.63e-03
+switching_power: 1.81e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.90
+tns: -56.46
+wns: -2.03
+internal_poewr: 2.48e-03
+switching_power: 1.70e-03
+leakage_power: 2.54e-09
+total_power: 4.19e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_0.95
+tns: -54.71
+wns: -1.98
+internal_poewr: 2.35e-03
+switching_power: 1.62e-03
+leakage_power: 2.54e-09
+total_power: 3.97e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.00
+tns: -52.96
+wns: -1.93
+internal_poewr: 2.23e-03
+switching_power: 1.53e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.05
+tns: -51.21
+wns: -1.88
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.10
+tns: -49.46
+wns: -1.83
+internal_poewr: 2.03e-03
+switching_power: 1.39e-03
+leakage_power: 2.54e-09
+total_power: 3.43e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.15
+tns: -47.71
+wns: -1.78
+internal_poewr: 1.94e-03
+switching_power: 1.33e-03
+leakage_power: 2.54e-09
+total_power: 3.28e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.20
+tns: -45.96
+wns: -1.73
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.25
+tns: -44.21
+wns: -1.68
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.01e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.30
+tns: -42.46
+wns: -1.63
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.35
+tns: -40.71
+wns: -1.58
+internal_poewr: 1.65e-03
+switching_power: 1.14e-03
+leakage_power: 2.54e-09
+total_power: 2.79e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.40
+tns: -38.96
+wns: -1.53
+internal_poewr: 1.60e-03
+switching_power: 1.10e-03
+leakage_power: 2.54e-09
+total_power: 2.69e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.45
+tns: -37.21
+wns: -1.48
+internal_poewr: 1.54e-03
+switching_power: 1.06e-03
+leakage_power: 2.54e-09
+total_power: 2.60e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.50
+tns: -35.46
+wns: -1.43
+internal_poewr: 1.49e-03
+switching_power: 1.02e-03
+leakage_power: 2.54e-09
+total_power: 2.51e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.55
+tns: -33.71
+wns: -1.38
+internal_poewr: 1.44e-03
+switching_power: 9.90e-04
+leakage_power: 2.54e-09
+total_power: 2.43e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.60
+tns: -31.96
+wns: -1.33
+internal_poewr: 1.40e-03
+switching_power: 9.59e-04
+leakage_power: 2.54e-09
+total_power: 2.36e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.65
+tns: -30.21
+wns: -1.28
+internal_poewr: 1.35e-03
+switching_power: 9.30e-04
+leakage_power: 2.54e-09
+total_power: 2.28e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.70
+tns: -28.46
+wns: -1.23
+internal_poewr: 1.31e-03
+switching_power: 9.03e-04
+leakage_power: 2.54e-09
+total_power: 2.22e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.75
+tns: -26.76
+wns: -1.18
+internal_poewr: 1.28e-03
+switching_power: 8.77e-04
+leakage_power: 2.54e-09
+total_power: 2.15e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.80
+tns: -25.06
+wns: -1.13
+internal_poewr: 1.24e-03
+switching_power: 8.52e-04
+leakage_power: 2.54e-09
+total_power: 2.09e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.85
+tns: -23.36
+wns: -1.08
+internal_poewr: 1.21e-03
+switching_power: 8.29e-04
+leakage_power: 2.54e-09
+total_power: 2.04e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.90
+tns: -21.66
+wns: -1.03
+internal_poewr: 1.18e-03
+switching_power: 8.08e-04
+leakage_power: 2.54e-09
+total_power: 1.98e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_1.95
+tns: -19.96
+wns: -0.98
+internal_poewr: 1.15e-03
+switching_power: 7.87e-04
+leakage_power: 2.54e-09
+total_power: 1.93e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.00
+tns: -18.26
+wns: -0.93
+internal_poewr: 1.12e-03
+switching_power: 7.67e-04
+leakage_power: 2.54e-09
+total_power: 1.88e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.05
+tns: -16.56
+wns: -0.88
+internal_poewr: 1.09e-03
+switching_power: 7.49e-04
+leakage_power: 2.54e-09
+total_power: 1.84e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.10
+tns: -14.86
+wns: -0.83
+internal_poewr: 1.06e-03
+switching_power: 7.31e-04
+leakage_power: 2.54e-09
+total_power: 1.79e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.15
+tns: -13.16
+wns: -0.78
+internal_poewr: 1.04e-03
+switching_power: 7.14e-04
+leakage_power: 2.54e-09
+total_power: 1.75e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.20
+tns: -11.47
+wns: -0.73
+internal_poewr: 1.02e-03
+switching_power: 6.97e-04
+leakage_power: 2.54e-09
+total_power: 1.71e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.25
+tns: -9.88
+wns: -0.68
+internal_poewr: 9.93e-04
+switching_power: 6.82e-04
+leakage_power: 2.54e-09
+total_power: 1.67e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.30
+tns: -8.38
+wns: -0.63
+internal_poewr: 9.71e-04
+switching_power: 6.67e-04
+leakage_power: 2.54e-09
+total_power: 1.64e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.35
+tns: -7.14
+wns: -0.58
+internal_poewr: 9.51e-04
+switching_power: 6.53e-04
+leakage_power: 2.54e-09
+total_power: 1.60e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.40
+tns: -6.14
+wns: -0.53
+internal_poewr: 9.31e-04
+switching_power: 6.39e-04
+leakage_power: 2.54e-09
+total_power: 1.57e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.45
+tns: -5.21
+wns: -0.48
+internal_poewr: 9.12e-04
+switching_power: 6.26e-04
+leakage_power: 2.54e-09
+total_power: 1.54e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.50
+tns: -4.31
+wns: -0.43
+internal_poewr: 8.94e-04
+switching_power: 6.14e-04
+leakage_power: 2.54e-09
+total_power: 1.51e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.55
+tns: -3.41
+wns: -0.38
+internal_poewr: 8.76e-04
+switching_power: 6.02e-04
+leakage_power: 2.54e-09
+total_power: 1.48e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.60
+tns: -2.51
+wns: -0.33
+internal_poewr: 8.59e-04
+switching_power: 5.90e-04
+leakage_power: 2.54e-09
+total_power: 1.45e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.65
+tns: -1.63
+wns: -0.28
+internal_poewr: 8.43e-04
+switching_power: 5.79e-04
+leakage_power: 2.54e-09
+total_power: 1.42e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.70
+tns: -0.90
+wns: -0.23
+internal_poewr: 8.27e-04
+switching_power: 5.68e-04
+leakage_power: 2.54e-09
+total_power: 1.40e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.75
+tns: -0.55
+wns: -0.18
+internal_poewr: 8.12e-04
+switching_power: 5.58e-04
+leakage_power: 2.54e-09
+total_power: 1.37e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.80
+tns: -0.25
+wns: -0.13
+internal_poewr: 7.98e-04
+switching_power: 5.48e-04
+leakage_power: 2.54e-09
+total_power: 1.35e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.85
+tns: -0.11
+wns: -0.08
+internal_poewr: 7.84e-04
+switching_power: 5.38e-04
+leakage_power: 2.54e-09
+total_power: 1.32e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.32_CLK_PERIOD_2.90
+tns: -0.03
+wns: -0.03
+internal_poewr: 7.70e-04
+switching_power: 5.29e-04
+leakage_power: 2.54e-09
+total_power: 1.30e-03
+instance count: 8649
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.55
+tns: -68.39
+wns: -2.37
+internal_poewr: 4.06e-03
+switching_power: 2.79e-03
+leakage_power: 2.54e-09
+total_power: 6.85e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.60
+tns: -66.64
+wns: -2.32
+internal_poewr: 3.72e-03
+switching_power: 2.55e-03
+leakage_power: 2.54e-09
+total_power: 6.28e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.65
+tns: -64.89
+wns: -2.27
+internal_poewr: 3.44e-03
+switching_power: 2.36e-03
+leakage_power: 2.54e-09
+total_power: 5.79e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.70
+tns: -63.14
+wns: -2.22
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.75
+tns: -61.39
+wns: -2.17
+internal_poewr: 2.98e-03
+switching_power: 2.04e-03
+leakage_power: 2.54e-09
+total_power: 5.02e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.80
+tns: -59.64
+wns: -2.12
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.85
+tns: -57.89
+wns: -2.07
+internal_poewr: 2.63e-03
+switching_power: 1.80e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.90
+tns: -56.14
+wns: -2.02
+internal_poewr: 2.48e-03
+switching_power: 1.70e-03
+leakage_power: 2.54e-09
+total_power: 4.18e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_0.95
+tns: -54.39
+wns: -1.97
+internal_poewr: 2.35e-03
+switching_power: 1.61e-03
+leakage_power: 2.54e-09
+total_power: 3.96e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.00
+tns: -52.64
+wns: -1.92
+internal_poewr: 2.23e-03
+switching_power: 1.53e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.05
+tns: -50.89
+wns: -1.87
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.10
+tns: -49.14
+wns: -1.82
+internal_poewr: 2.03e-03
+switching_power: 1.39e-03
+leakage_power: 2.54e-09
+total_power: 3.42e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.15
+tns: -47.39
+wns: -1.77
+internal_poewr: 1.94e-03
+switching_power: 1.33e-03
+leakage_power: 2.54e-09
+total_power: 3.27e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.20
+tns: -45.64
+wns: -1.72
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.25
+tns: -43.89
+wns: -1.67
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.01e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.30
+tns: -42.14
+wns: -1.62
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.35
+tns: -40.39
+wns: -1.57
+internal_poewr: 1.65e-03
+switching_power: 1.14e-03
+leakage_power: 2.54e-09
+total_power: 2.79e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.40
+tns: -38.64
+wns: -1.52
+internal_poewr: 1.60e-03
+switching_power: 1.09e-03
+leakage_power: 2.54e-09
+total_power: 2.69e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.45
+tns: -36.89
+wns: -1.47
+internal_poewr: 1.54e-03
+switching_power: 1.06e-03
+leakage_power: 2.54e-09
+total_power: 2.60e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.50
+tns: -35.14
+wns: -1.42
+internal_poewr: 1.49e-03
+switching_power: 1.02e-03
+leakage_power: 2.54e-09
+total_power: 2.51e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.55
+tns: -33.39
+wns: -1.37
+internal_poewr: 1.44e-03
+switching_power: 9.89e-04
+leakage_power: 2.54e-09
+total_power: 2.43e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.60
+tns: -31.64
+wns: -1.32
+internal_poewr: 1.40e-03
+switching_power: 9.58e-04
+leakage_power: 2.54e-09
+total_power: 2.35e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.65
+tns: -29.89
+wns: -1.27
+internal_poewr: 1.35e-03
+switching_power: 9.29e-04
+leakage_power: 2.54e-09
+total_power: 2.28e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.70
+tns: -28.14
+wns: -1.22
+internal_poewr: 1.31e-03
+switching_power: 9.01e-04
+leakage_power: 2.54e-09
+total_power: 2.22e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.75
+tns: -26.44
+wns: -1.17
+internal_poewr: 1.28e-03
+switching_power: 8.76e-04
+leakage_power: 2.54e-09
+total_power: 2.15e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.80
+tns: -24.74
+wns: -1.12
+internal_poewr: 1.24e-03
+switching_power: 8.51e-04
+leakage_power: 2.54e-09
+total_power: 2.09e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.85
+tns: -23.04
+wns: -1.07
+internal_poewr: 1.21e-03
+switching_power: 8.28e-04
+leakage_power: 2.54e-09
+total_power: 2.04e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.90
+tns: -21.34
+wns: -1.02
+internal_poewr: 1.18e-03
+switching_power: 8.06e-04
+leakage_power: 2.54e-09
+total_power: 1.98e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_1.95
+tns: -19.64
+wns: -0.97
+internal_poewr: 1.15e-03
+switching_power: 7.86e-04
+leakage_power: 2.54e-09
+total_power: 1.93e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.00
+tns: -17.94
+wns: -0.92
+internal_poewr: 1.12e-03
+switching_power: 7.66e-04
+leakage_power: 2.54e-09
+total_power: 1.88e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.05
+tns: -16.24
+wns: -0.87
+internal_poewr: 1.09e-03
+switching_power: 7.47e-04
+leakage_power: 2.54e-09
+total_power: 1.84e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.10
+tns: -14.54
+wns: -0.82
+internal_poewr: 1.06e-03
+switching_power: 7.30e-04
+leakage_power: 2.54e-09
+total_power: 1.79e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.15
+tns: -12.84
+wns: -0.77
+internal_poewr: 1.04e-03
+switching_power: 7.13e-04
+leakage_power: 2.54e-09
+total_power: 1.75e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.20
+tns: -11.14
+wns: -0.72
+internal_poewr: 1.02e-03
+switching_power: 6.96e-04
+leakage_power: 2.54e-09
+total_power: 1.71e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.25
+tns: -9.46
+wns: -0.67
+internal_poewr: 9.93e-04
+switching_power: 6.81e-04
+leakage_power: 2.54e-09
+total_power: 1.67e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.30
+tns: -7.93
+wns: -0.62
+internal_poewr: 9.71e-04
+switching_power: 6.66e-04
+leakage_power: 2.54e-09
+total_power: 1.64e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.35
+tns: -6.53
+wns: -0.57
+internal_poewr: 9.51e-04
+switching_power: 6.52e-04
+leakage_power: 2.54e-09
+total_power: 1.60e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.40
+tns: -5.43
+wns: -0.52
+internal_poewr: 9.31e-04
+switching_power: 6.38e-04
+leakage_power: 2.54e-09
+total_power: 1.57e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.45
+tns: -4.50
+wns: -0.47
+internal_poewr: 9.12e-04
+switching_power: 6.25e-04
+leakage_power: 2.54e-09
+total_power: 1.54e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.33_CLK_PERIOD_2.50
+tns: -3.60
+wns: -0.42
+internal_poewr: 8.94e-04
+switching_power: 6.13e-04
+leakage_power: 2.54e-09
+total_power: 1.51e-03
+instance count: 8669
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.55
+tns: -68.70
+wns: -2.37
+internal_poewr: 4.06e-03
+switching_power: 2.79e-03
+leakage_power: 2.54e-09
+total_power: 6.85e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.60
+tns: -66.95
+wns: -2.32
+internal_poewr: 3.72e-03
+switching_power: 2.56e-03
+leakage_power: 2.54e-09
+total_power: 6.28e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.65
+tns: -65.20
+wns: -2.27
+internal_poewr: 3.44e-03
+switching_power: 2.36e-03
+leakage_power: 2.54e-09
+total_power: 5.80e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.70
+tns: -63.45
+wns: -2.22
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.75
+tns: -61.70
+wns: -2.17
+internal_poewr: 2.98e-03
+switching_power: 2.05e-03
+leakage_power: 2.54e-09
+total_power: 5.03e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.80
+tns: -59.95
+wns: -2.12
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.85
+tns: -58.20
+wns: -2.07
+internal_poewr: 2.63e-03
+switching_power: 1.81e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.90
+tns: -56.45
+wns: -2.02
+internal_poewr: 2.48e-03
+switching_power: 1.71e-03
+leakage_power: 2.54e-09
+total_power: 4.19e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_0.95
+tns: -54.70
+wns: -1.97
+internal_poewr: 2.35e-03
+switching_power: 1.62e-03
+leakage_power: 2.54e-09
+total_power: 3.97e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.00
+tns: -52.95
+wns: -1.92
+internal_poewr: 2.23e-03
+switching_power: 1.53e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.05
+tns: -51.20
+wns: -1.87
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.10
+tns: -49.45
+wns: -1.82
+internal_poewr: 2.03e-03
+switching_power: 1.40e-03
+leakage_power: 2.54e-09
+total_power: 3.43e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.15
+tns: -47.70
+wns: -1.77
+internal_poewr: 1.94e-03
+switching_power: 1.33e-03
+leakage_power: 2.54e-09
+total_power: 3.28e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.20
+tns: -45.95
+wns: -1.72
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.25
+tns: -44.20
+wns: -1.67
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.02e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.30
+tns: -42.45
+wns: -1.62
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.35
+tns: -40.70
+wns: -1.57
+internal_poewr: 1.65e-03
+switching_power: 1.14e-03
+leakage_power: 2.54e-09
+total_power: 2.79e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.40
+tns: -38.95
+wns: -1.52
+internal_poewr: 1.60e-03
+switching_power: 1.10e-03
+leakage_power: 2.54e-09
+total_power: 2.69e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.45
+tns: -37.20
+wns: -1.47
+internal_poewr: 1.54e-03
+switching_power: 1.06e-03
+leakage_power: 2.54e-09
+total_power: 2.60e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.50
+tns: -35.45
+wns: -1.42
+internal_poewr: 1.49e-03
+switching_power: 1.02e-03
+leakage_power: 2.54e-09
+total_power: 2.51e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.55
+tns: -33.70
+wns: -1.37
+internal_poewr: 1.44e-03
+switching_power: 9.90e-04
+leakage_power: 2.54e-09
+total_power: 2.43e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.60
+tns: -31.95
+wns: -1.32
+internal_poewr: 1.40e-03
+switching_power: 9.59e-04
+leakage_power: 2.54e-09
+total_power: 2.36e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.65
+tns: -30.20
+wns: -1.27
+internal_poewr: 1.35e-03
+switching_power: 9.30e-04
+leakage_power: 2.54e-09
+total_power: 2.28e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.70
+tns: -28.45
+wns: -1.22
+internal_poewr: 1.31e-03
+switching_power: 9.03e-04
+leakage_power: 2.54e-09
+total_power: 2.22e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.75
+tns: -26.75
+wns: -1.17
+internal_poewr: 1.28e-03
+switching_power: 8.77e-04
+leakage_power: 2.54e-09
+total_power: 2.15e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.80
+tns: -25.05
+wns: -1.12
+internal_poewr: 1.24e-03
+switching_power: 8.53e-04
+leakage_power: 2.54e-09
+total_power: 2.09e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.85
+tns: -23.35
+wns: -1.07
+internal_poewr: 1.21e-03
+switching_power: 8.30e-04
+leakage_power: 2.54e-09
+total_power: 2.04e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.90
+tns: -21.65
+wns: -1.02
+internal_poewr: 1.18e-03
+switching_power: 8.08e-04
+leakage_power: 2.54e-09
+total_power: 1.98e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_1.95
+tns: -19.95
+wns: -0.97
+internal_poewr: 1.15e-03
+switching_power: 7.87e-04
+leakage_power: 2.54e-09
+total_power: 1.93e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_2.00
+tns: -18.25
+wns: -0.92
+internal_poewr: 1.12e-03
+switching_power: 7.67e-04
+leakage_power: 2.54e-09
+total_power: 1.88e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_2.05
+tns: -16.55
+wns: -0.87
+internal_poewr: 1.09e-03
+switching_power: 7.49e-04
+leakage_power: 2.54e-09
+total_power: 1.84e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.34_CLK_PERIOD_2.10
+tns: -14.85
+wns: -0.82
+internal_poewr: 1.06e-03
+switching_power: 7.31e-04
+leakage_power: 2.54e-09
+total_power: 1.79e-03
+instance count: 8719
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.55
+tns: -68.70
+wns: -2.37
+internal_poewr: 4.06e-03
+switching_power: 2.79e-03
+leakage_power: 2.54e-09
+total_power: 6.85e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.60
+tns: -66.95
+wns: -2.32
+internal_poewr: 3.72e-03
+switching_power: 2.56e-03
+leakage_power: 2.54e-09
+total_power: 6.28e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.65
+tns: -65.20
+wns: -2.27
+internal_poewr: 3.44e-03
+switching_power: 2.36e-03
+leakage_power: 2.54e-09
+total_power: 5.80e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.70
+tns: -63.45
+wns: -2.22
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.75
+tns: -61.70
+wns: -2.17
+internal_poewr: 2.98e-03
+switching_power: 2.04e-03
+leakage_power: 2.54e-09
+total_power: 5.02e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.80
+tns: -59.95
+wns: -2.12
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.85
+tns: -58.20
+wns: -2.07
+internal_poewr: 2.63e-03
+switching_power: 1.80e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.90
+tns: -56.45
+wns: -2.02
+internal_poewr: 2.48e-03
+switching_power: 1.70e-03
+leakage_power: 2.54e-09
+total_power: 4.19e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_0.95
+tns: -54.70
+wns: -1.97
+internal_poewr: 2.35e-03
+switching_power: 1.61e-03
+leakage_power: 2.54e-09
+total_power: 3.97e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.00
+tns: -52.95
+wns: -1.92
+internal_poewr: 2.23e-03
+switching_power: 1.53e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.05
+tns: -51.20
+wns: -1.87
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.10
+tns: -49.45
+wns: -1.82
+internal_poewr: 2.03e-03
+switching_power: 1.39e-03
+leakage_power: 2.54e-09
+total_power: 3.43e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.15
+tns: -47.70
+wns: -1.77
+internal_poewr: 1.94e-03
+switching_power: 1.33e-03
+leakage_power: 2.54e-09
+total_power: 3.28e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.20
+tns: -45.95
+wns: -1.72
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.25
+tns: -44.20
+wns: -1.67
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.01e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.30
+tns: -42.45
+wns: -1.62
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.35
+tns: -40.70
+wns: -1.57
+internal_poewr: 1.65e-03
+switching_power: 1.14e-03
+leakage_power: 2.54e-09
+total_power: 2.79e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.40
+tns: -38.95
+wns: -1.52
+internal_poewr: 1.60e-03
+switching_power: 1.10e-03
+leakage_power: 2.54e-09
+total_power: 2.69e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.45
+tns: -37.20
+wns: -1.47
+internal_poewr: 1.54e-03
+switching_power: 1.06e-03
+leakage_power: 2.54e-09
+total_power: 2.60e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.50
+tns: -35.45
+wns: -1.42
+internal_poewr: 1.49e-03
+switching_power: 1.02e-03
+leakage_power: 2.54e-09
+total_power: 2.51e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.55
+tns: -33.70
+wns: -1.37
+internal_poewr: 1.44e-03
+switching_power: 9.89e-04
+leakage_power: 2.54e-09
+total_power: 2.43e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.60
+tns: -31.95
+wns: -1.32
+internal_poewr: 1.40e-03
+switching_power: 9.58e-04
+leakage_power: 2.54e-09
+total_power: 2.35e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.65
+tns: -30.20
+wns: -1.27
+internal_poewr: 1.35e-03
+switching_power: 9.29e-04
+leakage_power: 2.54e-09
+total_power: 2.28e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.35000000000000003_CLK_PERIOD_1.70
+tns: -28.45
+wns: -1.22
+internal_poewr: 1.31e-03
+switching_power: 9.02e-04
+leakage_power: 2.54e-09
+total_power: 2.22e-03
+instance count: 8689
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.55
+tns: -69.31
+wns: -2.37
+internal_poewr: 4.06e-03
+switching_power: 2.79e-03
+leakage_power: 2.54e-09
+total_power: 6.85e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.60
+tns: -67.56
+wns: -2.32
+internal_poewr: 3.72e-03
+switching_power: 2.56e-03
+leakage_power: 2.54e-09
+total_power: 6.28e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.65
+tns: -65.81
+wns: -2.27
+internal_poewr: 3.44e-03
+switching_power: 2.36e-03
+leakage_power: 2.54e-09
+total_power: 5.80e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.70
+tns: -64.06
+wns: -2.22
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.75
+tns: -62.31
+wns: -2.17
+internal_poewr: 2.98e-03
+switching_power: 2.05e-03
+leakage_power: 2.54e-09
+total_power: 5.03e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.80
+tns: -60.56
+wns: -2.12
+internal_poewr: 2.79e-03
+switching_power: 1.92e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.85
+tns: -58.81
+wns: -2.07
+internal_poewr: 2.63e-03
+switching_power: 1.81e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.90
+tns: -57.06
+wns: -2.02
+internal_poewr: 2.48e-03
+switching_power: 1.71e-03
+leakage_power: 2.54e-09
+total_power: 4.19e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_0.95
+tns: -55.31
+wns: -1.97
+internal_poewr: 2.35e-03
+switching_power: 1.62e-03
+leakage_power: 2.54e-09
+total_power: 3.97e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.00
+tns: -53.56
+wns: -1.92
+internal_poewr: 2.23e-03
+switching_power: 1.53e-03
+leakage_power: 2.54e-09
+total_power: 3.77e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.05
+tns: -51.81
+wns: -1.87
+internal_poewr: 2.13e-03
+switching_power: 1.46e-03
+leakage_power: 2.54e-09
+total_power: 3.59e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.10
+tns: -50.06
+wns: -1.82
+internal_poewr: 2.03e-03
+switching_power: 1.40e-03
+leakage_power: 2.54e-09
+total_power: 3.43e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.15
+tns: -48.31
+wns: -1.77
+internal_poewr: 1.94e-03
+switching_power: 1.33e-03
+leakage_power: 2.54e-09
+total_power: 3.28e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.20
+tns: -46.56
+wns: -1.72
+internal_poewr: 1.86e-03
+switching_power: 1.28e-03
+leakage_power: 2.54e-09
+total_power: 3.14e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.25
+tns: -44.81
+wns: -1.67
+internal_poewr: 1.79e-03
+switching_power: 1.23e-03
+leakage_power: 2.54e-09
+total_power: 3.02e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.36000000000000004_CLK_PERIOD_1.30
+tns: -43.06
+wns: -1.62
+internal_poewr: 1.72e-03
+switching_power: 1.18e-03
+leakage_power: 2.54e-09
+total_power: 2.90e-03
+instance count: 8682
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.55
+tns: -68.53
+wns: -2.37
+internal_poewr: 4.06e-03
+switching_power: 2.78e-03
+leakage_power: 2.54e-09
+total_power: 6.84e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.60
+tns: -66.78
+wns: -2.32
+internal_poewr: 3.72e-03
+switching_power: 2.55e-03
+leakage_power: 2.54e-09
+total_power: 6.27e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.65
+tns: -65.03
+wns: -2.27
+internal_poewr: 3.44e-03
+switching_power: 2.35e-03
+leakage_power: 2.54e-09
+total_power: 5.79e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.70
+tns: -63.28
+wns: -2.22
+internal_poewr: 3.19e-03
+switching_power: 2.19e-03
+leakage_power: 2.54e-09
+total_power: 5.38e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.75
+tns: -61.53
+wns: -2.17
+internal_poewr: 2.98e-03
+switching_power: 2.04e-03
+leakage_power: 2.54e-09
+total_power: 5.02e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.80
+tns: -59.78
+wns: -2.12
+internal_poewr: 2.79e-03
+switching_power: 1.91e-03
+leakage_power: 2.54e-09
+total_power: 4.71e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.85
+tns: -58.03
+wns: -2.07
+internal_poewr: 2.63e-03
+switching_power: 1.80e-03
+leakage_power: 2.54e-09
+total_power: 4.43e-03
+instance count: 8685
+
+data_bu/gcd_UTIL_0.37000000000000005_CLK_PERIOD_0.90
+tns: -56.28
+wns: -2.02
+internal_poewr: 2.48e-03
+switching_power: 1.70e-03
+leakage_power: 2.54e-09
+total_power: 4.18e-03
+instance count: 8685
+
