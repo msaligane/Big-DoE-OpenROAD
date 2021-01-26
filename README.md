@@ -44,15 +44,11 @@ CORE_DIE_SPACING = 10
 CORE_AREA = 1000000
 
 UTIL_START = 0.6
-
 UTIL_END = 0.8
-
 UTIL_STEP = 0.01
 
 CLK_STEP = 0.001
-
 CLK_START = 1 # in ns
-
 CLK_END = 2 # in ns
 
 #Metal layers used in pdn.cfg
