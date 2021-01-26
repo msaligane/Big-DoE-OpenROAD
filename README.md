@@ -7,14 +7,14 @@ The run_design.py script executes the following steps:
 4. Start NUM_THREAD processes.
 5. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
 
-The collect_data.py scirpt extracts the tns/wns/power values from the data folder created by run_design.py
+The collect_data.py script extracts the tns/wns/power values from the data folder created by run_design.py
 
 The run_design.py and collect_data.py should be placed inside the OpenROAD-flow/flow folder, and this var needs to be added at the beginning of the Makefile: `DESIGN_CONFIG=@1`
 
-The run_design.py script has these parameters can be modified:
+The run_design.py script has these parameters that can be modified:
 
 ```python
-#Design that will be sweeped
+#Design that will be swept
 DESIGN = "aes" 
 
 PLATFORM = "sky130"
@@ -22,16 +22,16 @@ PLATFORM = "sky130"
 #Number of threads that will be used
 NUM_THREAD = 8
 
-#Path to the tech lef file
+#Path to the tech LEF file
 TECH_LEF = "platforms/" + PLATFORM + "/lef/sky130_fd_sc_hd.tlef"
 
 #SITE that will be used to determine the CORE_AREA and DIE_AREA
 SITE_NAME = "unithd"
 
-#Sweeping start point of aspect ratio (hight/width)
+#Sweeping start point of aspect ratio (height/width)
 ASPECT_RATIO_START = 0.8
 
-#Sweeping end point of aspect ratio
+#Sweeping endpoint of aspect ratio
 ASPECT_RATIO_STOP = 1.5
 
 #Sweeping step
