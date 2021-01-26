@@ -1,6 +1,6 @@
 # Big-DoE-OpenROAD
 
-The run_design.py script will do the follow steps: 
+The run_design.py script executes the following steps: 
 1. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
 2. Create NUM_THREAD design folders, each with a different clock period and core/die areas.
 3. Create NUM_THREAD different Makefiles.
