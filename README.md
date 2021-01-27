@@ -1,11 +1,12 @@
 # Big-DoE-OpenROAD
 
 The run_design.py script executes the following steps: 
-1. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
-2. Create NUM_THREAD design folders, each with a different clock period and core/die areas.
-3. Create NUM_THREAD different Makefiles.
-4. Start NUM_THREAD processes.
-5. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
+1. clear the files/folders from the previous run.
+2. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
+3. Create NUM_PROCESS design folders, each with a different clock period and core/die areas.
+4. Create NUM_PROCESS different Makefiles.
+5. Start NUM_PROCESS jobs.
+6. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
 
 The collect_data.py script extracts the tns/wns/power values from the data folder created by run_design.py
 
