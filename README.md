@@ -47,9 +47,10 @@ UTIL_START = 0.6
 UTIL_END = 0.8
 UTIL_STEP = 0.01
 
-CLK_STEP = 0.001
+CLK_STEP = 0.1
 CLK_START = 1 # in ns
 CLK_END = 2 # in ns
+CLK_VARIATIONS = 5 # for denoise
 
 #Metal layers used in pdn.cfg
 METALS = ["met1", "met4", "met5"]
