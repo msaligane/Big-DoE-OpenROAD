@@ -1,12 +1,11 @@
 # Big-DoE-OpenROAD
 
 The run_design.py script executes the following steps: 
-1. clear the files/folders from the previous run.
-2. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
-3. Create NUM_PROCESS design folders, each with a different clock period and core/die areas.
-4. Create NUM_PROCESS different Makefiles.
-5. Start NUM_PROCESS jobs.
-6. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
+1. Modify the pdn.cfg, config.mk files (for power stripes and placement density sweeping).
+2. Create NUM_PROCESS design folders, each with a different clock period and core/die areas.
+3. Create NUM_PROCESS different Makefiles.
+4. Start NUM_PROCESS jobs.
+5. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
 
 The collect_data.py script extracts the tns/wns/power values from the data folder created by run_design.py
 
@@ -67,5 +66,12 @@ METAL_PITCH = [[6.5, 6.8, 0.1],
                [40.5, 40.8, 0.1]] 
 ```
 
-
+A clean_doe taget is added at the end of the Makefile to delete files/folders from the previous runs
+```
+clean_doe:
+	rm -rf  ./data 
+	rm -rf ./designs/*/*parallel*
+	rm -rf ./*/process*
+	rm -f Makefile_process*
+```
 
