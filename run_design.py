@@ -81,19 +81,19 @@ with open(TECH_LEF, "r") as rf:
     else:
         print("SITE information is not found")
 
-try:
-    for process_folder in glob.glob("./designs/" + PLATFORM + "/*parallel*"):
-        shutil.rmtree(process_folder)
-    for process_folder in glob.glob("./*/process*"):
-        shutil.rmtree(process_folder)
-    for process_file in glob.glob("./*process*"):
-        os.remove(process_file)
-
-    if os.path.exists("./data"):
-        shutil.rmtree("./data")
-except:
-    print("Cannot remove process folder" )
-    sys.exit(1)
+# try:
+#     for process_folder in glob.glob("./designs/" + PLATFORM + "/*parallel*"):
+#         shutil.rmtree(process_folder)
+#     for process_folder in glob.glob("./*/process*"):
+#         shutil.rmtree(process_folder)
+#     for process_file in glob.glob("./*process*"):
+#         os.remove(process_file)
+# 
+#     if os.path.exists("./data"):
+#         shutil.rmtree("./data")
+# except:
+#     print("Cannot remove process folder" )
+#     sys.exit(1)
 
 try:
     os.mkdir("./data")
@@ -133,7 +133,7 @@ for width_iter in metal_width_iters:
 
 # process function
 def run_make_design(target):
-    p = sp.call(["make", "-f", target, "synth"], shell=False)
+    p = sp.call(["make", "-f", target], shell=False)
 
 ################################
 # Sweep designs
@@ -199,7 +199,7 @@ for aspect_ratio in np.arange(ASPECT_RATIO_START, ASPECT_RATIO_STOP + 0.1*ASPECT
                     filedata = re.sub("logs", "logs/process" + str(process), filedata)
                     filedata = re.sub("objects", "objects/process" + str(process), filedata)
                     filedata = re.sub("reports", "reports/process" + str(process), filedata)
-                    filedata = re.sub("@1", "./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process) + "/config.mk", filedata)
+                    filedata = "DESIGN_CONFIG = ./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process) + "/config.mk\n" + filedata
                     with open("Makefile_process" + str(process), "w") as wf:
                         wf.write(filedata)
         

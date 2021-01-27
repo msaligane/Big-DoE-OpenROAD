@@ -1,12 +1,13 @@
 import re
 import glob
+import json
 
 PLATFORM = "sky130"
 DESIGN = "gcd"
 
 design_list = glob.glob("data_bu/*")
 
-all_results = open("all_results", "w")
+all_results = {}
 
 for design in design_list:
     log_f = design + "/logs"
@@ -38,15 +39,17 @@ for design in design_list:
     except:
         print("Cannot extract valid data from: " + design)
 
-    all_results.write(design + "\n")
-    all_results.write("tns: " + tns + "\n")
-    all_results.write("wns: " + wns + "\n")
-    all_results.write("internal_poewr: " + internal_poewr + "\n")
-    all_results.write("switching_power: " + switching_power + "\n")
-    all_results.write("leakage_power: " + leakage_power + "\n")
-    all_results.write("total_power: " + total_power + "\n")
-    all_results.write("instance count: " + instance + "\n")
 
-    all_results.write("\n")
 
-all_results.close()
+    all_results[design] = {}
+    all_results[design]["tns"] = tns
+    all_results[design]["wns"] = wns
+    all_results[design]["internal_power"] = internal_poewr
+    all_results[design]["switching_power"] = switching_power
+    all_results[design]["leakage_power"] = leakage_power
+    all_results[design]["total_power"] = total_power
+    all_results[design]["instance_count"] = instance
+
+
+with open("data_stream", "w") as wf:
+    wf.write(json.dumps(all_results))
