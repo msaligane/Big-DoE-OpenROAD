@@ -98,5 +98,6 @@ clean_doe:
 	rm -rf ./designs/*/*parallel*
 	rm -rf ./*/process*
 	rm -f Makefile_process*
+	rm -rf ./doe_reports
 ```
 
