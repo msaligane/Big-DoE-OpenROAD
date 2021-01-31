@@ -10,19 +10,19 @@ The run_design.py script executes the following steps:
 The collect_data.py script extracts the tns/wns/power values from the data folder created by run_design.py. These values are extracted from the OpenROAD reports:
 
 ```
-2_init.rpt => doe_reports/2_init_all.csv
+2_1_floorplan.log => doe_reports/2_1_floorplan_all.csv
  - tns
  - wns
 
-3_pre_resize.rpt => doe_reports/3_pre_resize_all.csv
+3_3_resizer.log => doe_reports/3_3_resizer_all.csv
  - tns
  - wns
 
-3_post_resize.rpt => doe_reports/3_post_resize_all.csv
+4_1_cts.log => doe_reports/4_1_cts_all.csv
  - tns
  - wns
 
-6_final_report.rpt => doe_reports/6_final_report_all.csv
+6_report.log => doe_reports/6_report_all.csv
  - tns
  - wns
  - internal power
@@ -32,7 +32,7 @@ The collect_data.py script extracts the tns/wns/power values from the data folde
  - instance count
 ```
 
-All data is also stored in a json file called data_stream.json. Designs that cannot generate valid 6_final_report.rpt files are identified as failed desings and are recorded in the doe_reports/failed_designs.txt file.
+All data is also stored in a json file called data_stream.json. Designs that cannot generate valid 6_report.log files are identified as failed desings and are recorded in the doe_reports/failed_designs.txt file.
 
 The run_design.py and collect_data.py should be placed inside the OpenROAD-flow/flow folder (no need to add `DESIGN_CONFIG=@1` in Makefile)
 

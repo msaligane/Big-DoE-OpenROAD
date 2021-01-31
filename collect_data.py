@@ -4,26 +4,27 @@ import json
 import csv
 import os
 
-PLATFORM = "sky130"
-DESIGN = "gcd"
+PLATFORM = "SKY130HS"
+DESIGN = "jpeg"
 
 design_list = glob.glob("data/*")
 
-_2_init_all_results_csv = []
-_3_pre_resize_all_results_csv = []
-_3_post_resize_all_results_csv = []
-_6_final_report_all_results_csv = []
+_2_1_floorplan_all_results_csv = []
+_3_3_resizer_all_results_csv = []
+_4_1_cts_all_results_csv = []
+_6_report_all_results_csv = []
 all_results_json = {}
 
-_2_init_csv_columns = ["name", "tns", "wns"]
-_3_resize_csv_columns = ["name", "tns", "wns"]
-_6_final_report_csv_columns = ["name", "tns", "wns", "internal_power", "switching_power", "leakage_power", "total_power", "instance_count"]
+_2_1_floorplan_csv_columns = ["name", "tns", "wns"]
+_3_3_resizer_csv_columns = ["name", "tns", "wns"]
+_4_1_cts_csv_columns = ["name", "tns", "wns"]
+_6_report_csv_columns = ["name", "tns", "wns", "internal_power", "switching_power", "leakage_power", "total_power", "instance_count"]
 
 failed_designs = []
 
 for design in design_list:
-    log_f = design + "/logs"
-    object_f = design + "/objects"
+    logs_f = design + "/logs"
+    objects_f = design + "/objects"
     reports_f = design + "/reports"
     results_f = design + "/results"
 
@@ -31,8 +32,30 @@ for design in design_list:
     
     all_results_json[design_name] = {}
     
-    if os.path.isfile(reports_f + "/" + PLATFORM + "/" + DESIGN + "/2_init.rpt"):
-        with open(reports_f + "/" + PLATFORM + "/" + DESIGN + "/2_init.rpt", "r") as rf:
+    if os.path.isfile(logs_f + "/" + PLATFORM + "/" + DESIGN + "/2_1_floorplan.log"):
+        with open(logs_f + "/" + PLATFORM + "/" + DESIGN + "/2_1_floorplan.log", "r") as rf:
+            filedata = rf.read()
+        tns_group = re.search("tns (.*)", filedata)
+        wns_group = re.search("wns (.*)", filedata)
+        
+        results = {}
+        results["name"] = design_name
+        
+        try:
+            tns = tns_group.group(1)
+            wns = wns_group.group(1)
+            
+            results["tns"] = tns
+            results["wns"] = wns
+
+            all_results_json[design_name]["2_1_floorplan"] = results 
+            _2_1_floorplan_all_results_csv.append(results)
+        except:
+            print("Cannot extract 2_1_floorplan.log from: " + design)
+
+
+    if os.path.isfile(logs_f + "/" + PLATFORM + "/" + DESIGN + "/3_3_resizer.log"):
+        with open(logs_f + "/" + PLATFORM + "/" + DESIGN + "/3_3_resizer.log", "r") as rf:
             filedata = rf.read()
 
         tns_group = re.search("tns (.*)", filedata)
@@ -48,37 +71,14 @@ for design in design_list:
             results["tns"] = tns
             results["wns"] = wns
 
-            all_results_json[design_name]["2_init"] = results 
-            _2_init_all_results_csv.append(results)
+            all_results_json[design_name]["3_3_resizer"] = results 
+            _3_3_resizer_all_results_csv.append(results)
         except:
-            print("Cannot extract 2_init.rpt from: " + design)
-
-
-    if os.path.isfile(reports_f + "/" + PLATFORM + "/" + DESIGN + "/3_pre_resize.rpt"):
-        with open(reports_f + "/" + PLATFORM + "/" + DESIGN + "/3_pre_resize.rpt", "r") as rf:
-            filedata = rf.read()
-
-        tns_group = re.search("tns (.*)", filedata)
-        wns_group = re.search("wns (.*)", filedata)
-        
-        results = {}
-        results["name"] = design_name
-        
-        try:
-            tns = tns_group.group(1)
-            wns = wns_group.group(1)
-            
-            results["tns"] = tns
-            results["wns"] = wns
-
-            all_results_json[design_name]["3_pre_resize"] = results 
-            _3_pre_resize_all_results_csv.append(results)
-        except:
-            print("Cannot extract 3_pre_resize.rpt from: " + design)
+            print("Cannot extract 3_3_resizer.log from: " + design)
     
 
-    if os.path.isfile(reports_f + "/" + PLATFORM + "/" + DESIGN + "/3_post_resize.rpt"):
-        with open(reports_f + "/" + PLATFORM + "/" + DESIGN + "/3_post_resize.rpt", "r") as rf:
+    if os.path.isfile(logs_f + "/" + PLATFORM + "/" + DESIGN + "/4_1_cts.log"):
+        with open(logs_f + "/" + PLATFORM + "/" + DESIGN + "/4_1_cts.log", "r") as rf:
             filedata = rf.read()
 
         tns_group = re.search("tns (.*)", filedata)
@@ -94,13 +94,13 @@ for design in design_list:
             results["tns"] = tns
             results["wns"] = wns
 
-            all_results_json[design_name]["3_post_resize"] = results 
-            _3_post_resize_all_results_csv.append(results)
+            all_results_json[design_name]["4_1_cts"] = results 
+            _4_1_cts_all_results_csv.append(results)
         except:
-            print("Cannot extract 3_post_resize.rpt from: " + design)
+            print("Cannot extract 4_1_cts.log from: " + design)
 
-    if os.path.isfile(reports_f + "/" + PLATFORM + "/" + DESIGN + "/6_final_report.rpt"):
-        with open(reports_f + "/" + PLATFORM + "/" + DESIGN + "/6_final_report.rpt", "r") as rf:
+    if os.path.isfile(logs_f + "/" + PLATFORM + "/" + DESIGN + "/6_report.log"):
+        with open(logs_f + "/" + PLATFORM + "/" + DESIGN + "/6_report.log", "r") as rf:
             filedata = rf.read()
 
         tns_group = re.search("tns (.*)", filedata)
@@ -131,43 +131,45 @@ for design in design_list:
             results["total_power"] = total_power
             results["instance_count"] = instance
     
-            all_results_json[design_name]["6_final_report"] = results 
-            _6_final_report_all_results_csv.append(results)
+            all_results_json[design_name]["6_report"] = results 
+            _6_report_all_results_csv.append(results)
         except:
-            print("Cannot extract 6_final_report.rpt from: " + design)
+            print("Cannot extract 6_report.log from: " + design)
     else:    
         failed_designs.append(design_name)
 
-    
-os.mkdir("doe_reports")
+if not os.path.isdir("doe_reports"):
+    os.mkdir("doe_reports")
 
 with open("doe_reports/data_stream.json", "w") as wf:
     wf.write(json.dumps(all_results_json))
 
-with open("doe_reports/2_init_all.csv", "w") as wf:
-    writer = csv.DictWriter(wf, fieldnames=_2_init_csv_columns)
+with open("doe_reports/2_1_floorplan_all.csv", "w") as wf:
+    writer = csv.DictWriter(wf, fieldnames=_2_1_floorplan_csv_columns)
     writer.writeheader()
-    for data in _2_init_all_results_csv:
+    for data in _2_1_floorplan_all_results_csv:
         writer.writerow(data)
 
-with open("doe_reports/3_pre_resize_all.csv", "w") as wf:
-    writer = csv.DictWriter(wf, fieldnames=_3_resize_csv_columns)
+with open("doe_reports/3_3_resizer_all.csv", "w") as wf:
+    writer = csv.DictWriter(wf, fieldnames=_3_3_resizer_csv_columns)
     writer.writeheader()
-    for data in _3_pre_resize_all_results_csv:
+    for data in _3_3_resizer_all_results_csv:
         writer.writerow(data)
 
-with open("doe_reports/3_post_resize_all.csv", "w") as wf:
-    writer = csv.DictWriter(wf, fieldnames=_3_resize_csv_columns)
+with open("doe_reports/4_1_cts_all.csv", "w") as wf:
+    writer = csv.DictWriter(wf, fieldnames=_4_1_cts_csv_columns)
     writer.writeheader()
-    for data in _3_post_resize_all_results_csv:
+    for data in _4_1_cts_all_results_csv:
         writer.writerow(data)
 
-with open("doe_reports/6_final_reports_all.csv", "w") as wf:
-    writer = csv.DictWriter(wf, fieldnames=_6_final_report_csv_columns)
+with open("doe_reports/6_report_all.csv", "w") as wf:
+    writer = csv.DictWriter(wf, fieldnames=_6_report_csv_columns)
     writer.writeheader()
-    for data in _6_final_report_all_results_csv:
+    for data in _6_report_all_results_csv:
         writer.writerow(data)
 
 with open("doe_reports/failed_designs.txt", "w") as wf:
     for design in failed_designs:
         wf.write(design + "\n")
+
+print("Extraction done, data is stored in the doe_reports folder")
