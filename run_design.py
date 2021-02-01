@@ -29,6 +29,9 @@ NUM_PROCESS = 8
 ################################
 
 # clock period
+CLK_PERIOD = 9
+CLK_VALUES = [CLK_PERIOD * 0.8, CLK_PERIOD, CLK_PERIOD * 1.2]
+
 CLK_STEP = 0.1
 CLK_START = 5 # in ns
 CLK_END = 7 # in ns
@@ -80,6 +83,7 @@ CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_START = 0
 CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_END = 4
 CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_STEP = 2
 
+
 PLACE_DENSITY_START = 0.4
 PLACE_DENSITY_END = 0.8
 PLACE_DENSITY_STEP = 0.2
@@ -93,7 +97,7 @@ CELL_PAD_IN_SITES_DETAIL_PLACEMENT_STEP = 2
 # Cts
 ################################
 
-SETUP_FIX = [0, 1]
+SETUP_FIX = [1]
 
 ################################
 # Data preparation
@@ -136,8 +140,7 @@ except:
     print("Cannot create the design parallel folder")
     sys.exit(1)
 
-# generate clock groups
-
+# generate clock groups, not used
 clk_pool_temp = np.arange(CLK_START, CLK_END+0.1*CLK_STEP, CLK_STEP)
 clk_pool = [np.arange(clk-0.001*(CLK_VARIATIONS//2), clk+0.001*(CLK_VARIATIONS//2) + 0.1*0.001, 0.001) for clk in clk_pool_temp]
 clk_pool = np.concatenate(clk_pool, axis=0)
@@ -172,18 +175,34 @@ cell_pad_in_sites_detail_placement = np.arange(CELL_PAD_IN_SITES_DETAIL_PLACEMEN
                                                 CELL_PAD_IN_SITES_DETAIL_PLACEMENT_END + 0.1*CELL_PAD_IN_SITES_DETAIL_PLACEMENT_STEP, \
                                                 CELL_PAD_IN_SITES_DETAIL_PLACEMENT_STEP)
 
-place_density = np.arange(PLACE_DENSITY_START, \
-                            PLACE_DENSITY_END + 0.1*PLACE_DENSITY_STEP, \
-                            PLACE_DENSITY_STEP)
+
+# place_density = np.arange(PLACE_DENSITY_START, \
+#                             PLACE_DENSITY_END + 0.1*PLACE_DENSITY_STEP, \
+#                             PLACE_DENSITY_STEP)
 
 setup_fix = np.array(SETUP_FIX)
 
-knobs = [clk_pool, core_utilization, aspect_ratio, cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, place_density, setup_fix]
-knobs_list = list(product(*knobs))
+knobs = [CLK_VALUES, core_utilization, aspect_ratio, cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, setup_fix]
+knobs_list_temp = list(product(*knobs))
+
+PLACE_DENSITY_VALUES = []
+knobs_list = []
+for knobs in knobs_list_temp:
+    util = knobs[1]
+    gppad = knobs[3]
+
+    if DESIGN == "ibex":
+        LB = util + (gppad * (0.4*util-0.01))+0.01
+    elif DESIGN == "aes":
+        LB = util + (gppad * (0.5*util-0.005))+0.01
+    
+    PLACE_DENSITY_VALUES = [LB, LB + 0.1, LB + 0.2]
+    for pdv in PLACE_DENSITY_VALUES:
+        knobs_list.append([*knobs[0:-1], pdv, knobs[-1]])
 
 print("{:d} runs will be executed".format(len(knobs_list)))
 
-print("knobs num: clk-{:.0f}, core_utilization-{:.0f}, aspect_ratio-{:.0f}, cell_pad_in_sites_global_placement-{:.0f}, cell_pad_in_sites_detail_placement-{:.0f}, place_density-{:.0f}".format(len(clk_pool), len(core_utilization), len(aspect_ratio), len(cell_pad_in_sites_global_placement), len(cell_pad_in_sites_detail_placement), len(place_density)))
+print("knobs num: clk-{:.0f}, core_utilization-{:.0f}, aspect_ratio-{:.0f}, cell_pad_in_sites_global_placement-{:.0f}, cell_pad_in_sites_detail_placement-{:.0f}, place_density-{:.0f}".format(len(CLK_VALUES), len(core_utilization), len(aspect_ratio), len(cell_pad_in_sites_global_placement), len(cell_pad_in_sites_detail_placement), len(PLACE_DENSITY_VALUES)))
 
 
 with open("./scripts/cts.tcl", "r") as rf:
@@ -191,7 +210,6 @@ with open("./scripts/cts.tcl", "r") as rf:
 filedata = re.sub("\n(.*repair_timing -hold.*)", "\n\g<0>\nrepair_timing -setup -max_utilization [expr $::env(PLACE_DENSITY_MAX_POST_HOLD) * 100]", filedata)
 with open("./scripts/cts_doe.tcl", "w") as wf:
     wf.write(filedata)
-
 
 # process function
 def run_make_design(target):
