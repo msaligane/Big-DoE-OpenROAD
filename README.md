@@ -40,55 +40,65 @@ The run_design.py script has these parameters that can be modified:
 
 ```python
 #Design that will be swept
-DESIGN = "aes" 
+DESIGN = "gcd"
 
 PLATFORM = "sky130"
+PLATFORM_CONFIG = "config_hd.mk"
 
 #Number of threads that will be used
-NUM_THREAD = 8
+NUM_PROCESS = 8
 
-#Path to the tech LEF file
-TECH_LEF = "platforms/" + PLATFORM + "/lef/sky130_fd_sc_hd.tlef"
+################################
+# Clock period
+################################
 
-#SITE that will be used to determine the CORE_AREA and DIE_AREA
-SITE_NAME = "unithd"
+# clock period
+CLK_STEP = 0.1
+CLK_START = 5 # in ns
+CLK_END = 7 # in ns
+CLK_VARIATIONS = 3 # step 1ps
 
-#Sweeping start point of aspect ratio (height/width)
+################################
+# Floorplan
+################################
+
+# utilization
+CORE_CORE_UTILIZATION_START = 15
+CORE_CORE_UTILIZATION_END = 35
+CORE_CORE_UTILIZATION_STEP = 5
+
+# aspect ratio
+ASPECT_RATIO_VALUES = [3/4, 1, 4/3]
 ASPECT_RATIO_START = 0.8
-
-#Sweeping endpoint of aspect ratio
-ASPECT_RATIO_STOP = 1.5
-
-#Sweeping step
+ASPECT_RATIO_STOP = 1.2
 ASPECT_RATIO_STEP = 0.1
 
-#Distance between the CORE_AREA and DIE_AREA
-CORE_DIE_SPACING = 10
+# core/dire area
+CORE_DIE_MARGIN = 10
 
-#Core area, defined in um^2
-CORE_AREA = 1000000
+################################
+# Placement
+################################
 
-UTIL_START = 0.6
-UTIL_END = 0.8
-UTIL_STEP = 0.01
+CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_START = 0
+CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_END = 4
+CELL_PAD_IN_SITES_GLOBAL_PLACEMENT_STEP = 2
 
-CLK_STEP = 0.1
-CLK_START = 1 # in ns
-CLK_END = 2 # in ns
-CLK_VARIATIONS = 5 # for denoise
+PLACE_DENSITY_START = 0.4
+PLACE_DENSITY_END = 0.8
+PLACE_DENSITY_STEP = 0.2
 
-#Metal layers used in pdn.cfg
-METALS = ["met1", "met4", "met5"]
+CELL_PAD_IN_SITES_DETAIL_PLACEMENT_START = 0
+CELL_PAD_IN_SITES_DETAIL_PLACEMENT_END = 4
+CELL_PAD_IN_SITES_DETAIL_PLACEMENT_STEP = 2
 
-# [start, end, step], order is the same as in METALS var
-METAL_WIDTH = [[0.48, 0.50, 0.01], 
-               [0.95, 0.97, 0.01], 
-               [0.92, 0.94, 0.01]]
 
-# [start, end, step], order is the same as METALS var
-METAL_PITCH = [[6.5, 6.8, 0.1], 
-               [56.5, 56.8, 0.1], 
-               [40.5, 40.8, 0.1]] 
+################################
+# Cts
+################################
+
+SETUP_FIX = [0, 1]
+
 ```
 
 A clean_doe taget is added at the end of the Makefile to delete files/folders from the previous runs
