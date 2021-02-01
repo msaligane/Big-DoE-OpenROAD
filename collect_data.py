@@ -7,7 +7,7 @@ import os
 PLATFORM = "SKY130HS"
 DESIGN = "jpeg"
 
-design_list = glob.glob("data/*")
+design_list = glob.glob("ctest/*")
 
 _2_1_floorplan_all_results_csv = []
 _3_3_resizer_all_results_csv = []
@@ -110,7 +110,8 @@ for design in design_list:
 
         results = {}
         results["name"] = design_name
-        
+
+
         try:
             tns = tns_group.group(1)
             wns = wns_group.group(1)
@@ -129,7 +130,17 @@ for design in design_list:
             results["switching_power"] = switching_power
             results["leakage_power"] = leakage_power
             results["total_power"] = total_power
-            results["instance_count"] = instance
+            
+            with open(logs_f + "/" + PLATFORM + "/" + DESIGN + "/4_2_cts_fillcell.log", "r") as rf:
+                filler_filedata = rf.read()
+            
+            filler_group = re.search("Placed (\d+) filler instances", filler_filedata)
+            if filler_group:
+                filler_count = filler_group.group(1)
+                results["instance_count"] = int(instance) - int(filler_count)
+            else:
+                print("Cannot find filler nums")
+                results["instance_count"] = int(instance)
     
             all_results_json[design_name]["6_report"] = results 
             _6_report_all_results_csv.append(results)
