@@ -14,7 +14,7 @@ from itertools import product
 # Design platform
 ################################
 
-DESIGN = "gcd"
+DESIGN = "ibex"
 PLATFORM = "sky130"
 PLATFORM_CONFIG = "config_hd.mk"
 
