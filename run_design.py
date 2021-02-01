@@ -31,7 +31,7 @@ NUM_PROCESS = 8
 # clock period
 CLK_STEP = 0.1
 CLK_START = 5 # in ns
-CLK_END = 5.1 # in ns
+CLK_END = 7 # in ns
 CLK_VARIATIONS = 3 # step 1ps
 # print("CLK_START:{:.3f}ns, CLK_STEP:{:.3f}ns, CLK_END:{:.3f}ns".format(CLK_START, CLK_STEP, CLK_END))
 
@@ -312,4 +312,3 @@ while knob_iter < len(knobs_list):
         shutil.copyfile("./platforms/" + PLATFORM + "/" + "config_gppad_{:.0f}_dppad_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement), target_folder + "/config_gppad_{:.0f}_dppad_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement))
     
     knob_iter += current_process_num
-    sys.exit(0)
