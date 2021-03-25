@@ -6,7 +6,7 @@ The run_design.py script executes the following steps:
 3. Start NUM_PROCESS jobs.
 4. Collect results/logs/reports/objects/designs folders, the pdn.cfg and the config.mk files in a data folder.
 
-Currently, the run_design.py script can sweep the following parameters, the script can also generate random data points using LHS method
+Currently, the run_design.py can use LHS method to generate random data points, and the following parameters can be swept using the script.
 
 ```
 CLK_PERIOD  		- constraint.sdc in designs
@@ -24,7 +24,7 @@ LAYER_ADJUST 		- fastroute.tcl in platforms
 GR_OVERFLOW 		- fastroute.tcl in platforms
 ```
 
-The genMetrics_bigDoE.py script extracts tns/wns/power values from designs' reports swept by run_design.py.
+The genMetrics_bigDoE.py script extracts tns/wns/power values from designs' reports swept by run_design.py. The Big-DOE-plots.ipynb is used to plot figures/distributions within Jupyter Notebook.
 
 A clean_doe taget is added at the end of the Makefile to delete files/folders from the previous runs
 ```
