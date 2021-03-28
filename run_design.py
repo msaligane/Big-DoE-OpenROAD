@@ -10,6 +10,7 @@ import math
 import time
 from itertools import product
 from pyDOE import *
+from scipy.stats.distributions import norm, uniform, truncnorm
 
 ################################
 # Sweeping attributes
@@ -22,8 +23,8 @@ SWEEPING_ATTRS = ["CLK_PERIOD", "CORE_UTILIZATION", "ASPECT_RATIO", "GP_PAD", "D
 # The CLK_PERIOD is in ns for sky130, while the ABC_CLOCK_PERIOD is in ps
 VALUE_TYPE = {
     "CLK_PERIOD": "float 4",
-    "CORE_UTILIZATION": "float 2",
-    "ASPECT_RATIO": "float 2",
+    "CORE_UTILIZATION": "int",
+    "ASPECT_RATIO": "float 3",
     "GP_PAD": "int",
     "DP_PAD": "int",
     "LAYER_ADJUST": "float 1",
@@ -41,22 +42,29 @@ VALUE_TYPE = {
 # LHS setting
 ################################
 
+AVAILABLE_DISTRIBUTIONS = ['uniform', 'norm', 'truncnorm']
+
 # Run LHS?
 _use_lhs = True
+
+# arguments defined in LHS_ATTRS: a, b, c, d
+# uniform: X ~ U(a, b)
+# norm: X ~ N(loc=a, scale=b)
+# truncnorm: X ~ TN(a, b, loc=c, scale=b), meaning a norm dist with only values between (a,b)
 LHS_ATTRS = {
-    "CLK_PERIOD":           [5, 7],
-    "CORE_UTILIZATION":     [15, 45],
-    "ASPECT_RATIO":         [0.7, 1.0],
-    "GP_PAD":               [0, 4],
-    "DP_PAD":               [0, 4],
-    "LAYER_ADJUST":         [0.1, 1.0],
-    "PLACE_DENSITY":        [0.1, 1.0],
-    "FLATTEN":              [0, 1],
-    "ABC_CLOCK_PERIOD":     [5000, 7000],
-    "PINS_DISTANCE":        [1, 3],
-    "CTS_CLUSTER_SIZE":     [10, 40],
-    "CTS_CLUSTER_DIAMETER": [80, 120],
-    "GR_OVERFLOW":          [0, 1]
+    "CLK_PERIOD":           ['truncnorm', 5, 8, 6, 1],
+    "CORE_UTILIZATION":     ['norm', 30, 3],
+    "ASPECT_RATIO":         ['uniform', 0.7, 0.9],
+    "GP_PAD":               ['uniform', 0, 4],
+    "DP_PAD":               ['uniform', 0, 4],
+    "LAYER_ADJUST":         ['uniform', 0.1, 1.0],
+    "PLACE_DENSITY":        ['uniform', 0.1, 1.0],
+    "FLATTEN":              ['uniform', 0, 1],
+    "ABC_CLOCK_PERIOD":     ['uniform', 5000, 7000],
+    "PINS_DISTANCE":        ['uniform', 1, 3],
+    "CTS_CLUSTER_SIZE":     ['uniform', 10, 40],
+    "CTS_CLUSTER_DIAMETER": ['uniform', 80, 120],
+    "GR_OVERFLOW":          ['uniform', 0, 1]
 }
 LHS_SAMPLES = 10
 
@@ -194,8 +202,15 @@ lhs_knobs = []
 if _use_lhs:
     lhd = lhs(len(LHS_ATTRS), samples=LHS_SAMPLES)
     lhs_knobs = np.copy(lhd)
-    for idx, lhs_attr in enumerate(LHS_ATTRS):
-        lhs_knobs[:, idx] = (LHS_ATTRS[lhs_attr][1] - LHS_ATTRS[lhs_attr][0]) * lhd[:, idx] + LHS_ATTRS[lhs_attr][0]
+    for idx, lhs_attr in enumerate(LHS_ATTRS.keys()):
+        if LHS_ATTRS[lhs_attr][0] == 'uniform':
+          lhs_knobs[:, idx] = uniform(loc=LHS_ATTRS[lhs_attr][1], scale=LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][1]).ppf(lhd[:, idx])
+        elif LHS_ATTRS[lhs_attr][0] == 'truncnorm':
+          left_shift = (LHS_ATTRS[lhs_attr][1] - LHS_ATTRS[lhs_attr][3]) / LHS_ATTRS[lhs_attr][4]
+          right_shift = (LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][3]) /LHS_ATTRS[lhs_attr][4]
+          lhs_knobs[:, idx] = truncnorm.ppf(lhd[:, idx], a=left_shift, b=right_shift, loc=LHS_ATTRS[lhs_attr][3], scale=LHS_ATTRS[lhs_attr][4])
+        elif LHS_ATTRS[lhs_attr][0] == 'norm':
+          lhs_knobs[:, idx] = norm(loc=LHS_ATTRS[lhs_attr][1], scale=LHS_ATTRS[lhs_attr][2]).ppf(lhd[:, idx])
         
         value_type = VALUE_TYPE[lhs_attr].split()
         precision = 0
