@@ -53,33 +53,33 @@ _use_lhs = True
 # truncnorm: X ~ TN(a, b, loc=c, scale=b), meaning a norm dist with only values between (a,b)
 LHS_ATTRS = {
     "CLK_PERIOD":           ['truncnorm', 5, 8, 6, 1],
-    "CORE_UTILIZATION":     ['norm', 30, 3],
-    "ASPECT_RATIO":         ['uniform', 0.7, 0.9],
+    "CORE_UTILIZATION":     ['truncnorm', 25, 50, 30, 3],
+    "ASPECT_RATIO":         ['uniform', 0.7, 1],
     "GP_PAD":               ['uniform', 0, 4],
     "DP_PAD":               ['uniform', 0, 4],
-    "LAYER_ADJUST":         ['uniform', 0.1, 1.0],
+    "LAYER_ADJUST":         ['uniform', 0.1, 0.7],
     "PLACE_DENSITY":        ['uniform', 0.1, 1.0],
     "FLATTEN":              ['uniform', 0, 1],
-    "ABC_CLOCK_PERIOD":     ['uniform', 5000, 7000],
+    "ABC_CLOCK_PERIOD":     ['uniform', 5000, 5000],
     "PINS_DISTANCE":        ['uniform', 1, 3],
     "CTS_CLUSTER_SIZE":     ['uniform', 10, 40],
     "CTS_CLUSTER_DIAMETER": ['uniform', 80, 120],
-    "GR_OVERFLOW":          ['uniform', 0, 1]
+    "GR_OVERFLOW":          ['uniform', 1, 1]
 }
-LHS_SAMPLES = 10
+LHS_SAMPLES = 5000
 
 ################################
 # Design platform
 ################################
 
-DESIGN = "gcd"
-PLATFORM = "sky130hd"
+DESIGN = "ibex"
+PLATFORM = "sky130hs"
 PLATFORM_CONFIG = "config.mk"
 PLATFORM_DIR = "./platforms/" + PLATFORM
 
-NUM_PROCESS = 4
+NUM_PROCESS = 96
 
-TIME_OUT = 60*60 # in seconds
+TIME_OUT = 2*60*60 # in seconds
 
 ################################
 # Clock period
@@ -204,7 +204,8 @@ if _use_lhs:
     lhs_knobs = np.copy(lhd)
     for idx, lhs_attr in enumerate(LHS_ATTRS.keys()):
         if LHS_ATTRS[lhs_attr][0] == 'uniform':
-          lhs_knobs[:, idx] = uniform(loc=LHS_ATTRS[lhs_attr][1], scale=LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][1]).ppf(lhd[:, idx])
+          # lhs_knobs[:, idx] = uniform(loc=LHS_ATTRS[lhs_attr][1], scale=LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][1]).ppf(lhd[:, idx])
+          lhs_knobs[:, idx] = LHS_ATTRS[lhs_attr][1] + (LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][1]) * lhd[:, idx]
         elif LHS_ATTRS[lhs_attr][0] == 'truncnorm':
           left_shift = (LHS_ATTRS[lhs_attr][1] - LHS_ATTRS[lhs_attr][3]) / LHS_ATTRS[lhs_attr][4]
           right_shift = (LHS_ATTRS[lhs_attr][2] - LHS_ATTRS[lhs_attr][3]) /LHS_ATTRS[lhs_attr][4]
