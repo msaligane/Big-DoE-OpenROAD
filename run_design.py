@@ -373,7 +373,7 @@ while knob_iter < len(knobs_list):
         
         with open("./designs/" + PLATFORM + "/" + DESIGN + "/constraint.sdc", "r") as rf:
             filedata = rf.read()
-        filedata = re.sub("-period \d+", "-period " + str(clock), filedata)
+        filedata = re.sub("-period [0-9\.]+", "-period " + str(clock), filedata)
         filedata = re.sub("-waveform [{}\s0-9\.]+\n", "\n", filedata)
         with open("./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process) + "/constraint.sdc", "w") as wf:
             wf.write(filedata)
