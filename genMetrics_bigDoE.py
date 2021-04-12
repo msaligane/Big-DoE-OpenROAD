@@ -7,7 +7,6 @@
 
 import argparse  # argument parsing
 import json  # json parsing
-#import numpy as np
 import pandas as pd
 import subprocess
 import sys
@@ -19,59 +18,132 @@ import platform
 from collections import OrderedDict
 
 
+# Parse and validate arguments
+# ==============================================================================
+def parse_args():
+  parser = argparse.ArgumentParser(
+      description='Generates metadata from OpenROAD flow')
+  parser.add_argument('--flowPath', '-f', required=False, default="./",
+                      help='Path to the flow directory')
+  parser.add_argument('--design', '-d', required=False, default="all_designs",
+                      help='Path to the flow directory')
+  parser.add_argument('--platform', '-p', required=False, default="nangage45",
+                      help='Path to the flow directory')
+  parser.add_argument('--comment', '-c', required=False, default="",
+                      help='Additional comments to embed')
+  parser.add_argument('--output', '-o', required=False, default="metadata.json",
+                      help='Output file')
+  args = parser.parse_args()
+
+  if not os.path.isdir(args.flowPath):
+    print("Error: flowPath does not exist")
+    print("Path: " + args.flowPath)
+    sys.exit(1)
+
+  return args
+
+
 # Functions
 # ==============================================================================
 # Main function to do specific extraction of patterns from a file
 
 # This function will look for a regular expression "pattern" in a "file", and
 # set the key, "jsonTag", to the value found. The specific "occurrence" selects
-# which occurrence it uses. If pattern not found, it will print an error and set
-# the value to N/A. If a "defaultNotFound" is set, it will use that instead.
-# If occurrence is set to -2, it will return the count of the pattern.
-# t indicates the type that should be written to the JSON file (default: string)
-#
-def extractTagFromFile(jsonTag, pattern, file, occurrence=-1, defaultNotFound="N/A", t=str):
-#  if jsonTag in jsonFile:
-#    print("[WARN] Overwriting Tag", jsonTag)
+# which occurrence it uses (default -1, i.e., last). If pattern not found, it
+# will print an error and set the value to N/A. If a "defaultNotFound" is set,
+# it will use that instead.  If count is set to True, it will return the count
+# of the pattern.
+
+def extractTagFromFile(jsonTag, jsonFile, pattern, file, count=False, occurrence=-1, defaultNotFound="N/A", t=str):
+  if jsonTag in jsonFile:
+    print("[WARN] Overwriting Tag", jsonTag)
 
   # Open file
   try:
-    #searchFilePath = os.path.join(args.flowPath, file)
-    searchFilePath = file
-    with open(searchFilePath,encoding='latin1') as f:
+    searchFilePath = os.path.join(args.flowPath, file)
+    with open(searchFilePath) as f:
       content = f.read()
 
     m = re.findall(pattern, content, re.M)
 
     if m:
-      if occurrence == -2:
+      if count:
         # Return the count
         jsonFile[jsonTag] = len(m)
       else:
         # Note: This gets the specified occurrence
-        jsonFile[jsonTag] = (t)(m[occurrence].strip())
+        value = m[occurrence]
+        if isinstance(value, tuple):
+          value = value[arrayPos]
+        value = value.strip()
+        try:
+          jsonFile[jsonTag] = float(value)
+        except:
+          jsonFile[jsonTag] = str(value)
     else:
       # Only print a warning if the defaultNotFound is not set
-      #if defaultNotFound == "N/A":
-      #  print("[WARN] Tag", jsonTag, "not found in", searchFilePath)
+      if defaultNotFound == "N/A":
+        print("[WARN] Tag", jsonTag, "not found in", searchFilePath)
       jsonFile[jsonTag] = defaultNotFound
   except IOError:
     print("[WARN] Failed to open file:", searchFilePath)
     jsonFile[jsonTag] = "ERR"
 
 
-def extractGnuTime(prefix, file):
-  extractTagFromFile(prefix + "__runtime__total",
+def extractGnuTime(prefix, file, jsonFile):
+  extractTagFromFile(prefix + "__runtime__total", jsonFile,
                      "^(\S+)elapsed \S+CPU \S+memKB",
                      file)
-  extractTagFromFile(prefix + "__cpu__total",
+  extractTagFromFile(prefix + "__cpu__total", jsonFile,
                      "^\S+elapsed (\S+)CPU \S+memKB",
                      file)
-  extractTagFromFile(prefix + "__mem__peak",
+  extractTagFromFile(prefix + "__mem__peak", jsonFile,
                      "^\S+elapsed \S+CPU (\S+)memKB",
-                     file, t=int)
+                     file)
 
 
+#
+# Extract Clock Latency, Skew numbers
+# Need to extract these from native json
+#
+def get_skew_latency(file_name):
+  try:
+    f = open(file_name, 'r')
+  except:
+    return ('N/A', 'N/A', 'N/A')    
+  lines = f.readlines()
+  f.close()
+
+  latency_section = False
+  latency_max = latency_min = skew = 0.0
+  worst_latency_max = worst_latency_min = worst_skew = 0.0
+
+
+  for line in lines:
+    if len(line.split())<1:
+      continue
+    if line.startswith('Latency'):
+      latency_section = True 
+      continue
+    if latency_section and len(line.split())==1:
+      latency_max = float(line.split()[0])
+      continue
+    if latency_section and len(line.split())>2:
+      latency_min = float(line.split()[0])
+      skew = float(line.split()[2])
+      if skew > worst_skew:
+          worst_skew = skew
+          worst_latency_max = latency_max
+          worst_latency_min = latency_min
+      latency_section = False
+
+  return(worst_latency_max, worst_latency_min, worst_skew)
+
+
+
+#
+#  Extract clock info from sdc file
+#
 def read_sdc(file_name):
   sdcFile = open(file_name, 'r')
   lines = sdcFile.readlines()
@@ -95,544 +167,345 @@ def read_sdc(file_name):
   return clkList
 
 
-def extract_metrics(cwd, plt, des):
-    logPath = os.path.join(cwd, "logs", plt, des)
-    rptPath = os.path.join(cwd, "reports", plt, des)
-    resultPath = os.path.join(cwd, "results", plt, des)
+# Main
+# ==============================================================================
 
-    now = datetime.datetime.now()
+def extract_metrics(cwd, platform, design, output):
+    logPath = os.path.join(cwd, "logs", platform, design)
+    rptPath = os.path.join(cwd, "reports", platform, design)
+    resultPath = os.path.join(cwd, "results", platform, design)
+
     metrics_dict = {}
-    #SWK
-    # TODO -- currently, hard coded
-    # old: ibex_CORE_UTILIZATION_60.00_CLOCK_9.0000_ASRATIO_0.7000_GPPAD_4_DPPAD_2_PLACE_DENSITY_1.53_SETUPFIX_0_LAYER_ADJUST_0.5
-    # 210318: ibex_CORE_UTILIZATION_33.23_CLOCK_6.4649_ASRATIO_0.75_GPPAD_0_DPPAD_1_PLACE_DENSITY_0.53_LAYER_ADJUST_0.2_FLATTEN_1_ABC_CLOCK_5000.0_PINS_DISTANCE_2_CTS_SIZE_34_CTS_DIAMETER_80_ALLOW_OVERFLOW_1
+    
     design_name = cwd.split("/")[-1]
-    jsonFile["run__input__name"] = design_name
+    metrics_dict["run__input__name"] = design_name
     dname = design_name.split('_')
-    jsonFile["run__input__target_util"] = dname[3]
-    jsonFile["run__input__target_CP"] = dname[5]
-    jsonFile["run__input__aspect_ratio"] = dname[7]
-    jsonFile["run__input__global_padding"] = dname[9]
-    jsonFile["run__input__detailed_padding"] = dname[11]
-    jsonFile["run__input__place_density"] = dname[14]
-    jsonFile["run__input__layer_adjust"] = dname[17]
-    jsonFile["run__input__synth_flatten"] = dname[19]
-    jsonFile["run__input__abc_clock"] = dname[22]
-    jsonFile["run__input__pins_distance"] = dname[25]
-    jsonFile["run__input__cts_size"] = dname[28]
-    jsonFile["run__input__cts_diameter"] = dname[31]
-    jsonFile["run__input__allow_overflow"] = dname[34]
-
-
-    jsonFile["run__flow__generate__date"] = now.strftime("%Y-%m-%d %H:%M")
+    metrics_dict["run__input__target_util"] = dname[3]
+    metrics_dict["run__input__target_CP"] = dname[5]
+    metrics_dict["run__input__aspect_ratio"] = dname[7]
+    metrics_dict["run__input__global_padding"] = dname[9]
+    metrics_dict["run__input__detailed_padding"] = dname[11]
+    metrics_dict["run__input__place_density"] = dname[14]
+    metrics_dict["run__input__layer_adjust"] = dname[17]
+    metrics_dict["run__input__synth_flatten"] = dname[19]
+    metrics_dict["run__input__abc_clock"] = dname[22]
+    metrics_dict["run__input__pins_distance"] = dname[25]
+    metrics_dict["run__input__cts_size"] = dname[28]
+    metrics_dict["run__input__cts_diameter"] = dname[31]
+    metrics_dict["run__input__allow_overflow"] = dname[34]
+    
+    metrics_dict["run__flow__generate__date"] = now.strftime("%Y-%m-%d %H:%M")
     cmdOutput = subprocess.check_output(['openroad', '-version'])
     cmdFields = cmdOutput.split()
-    jsonFile["run__flow__openroad__version"] = str(cmdFields[0])
+    cmdFields = [ x.decode('utf-8') for x in cmdOutput.split()  ]
+    metrics_dict["run__flow__openroad__version"] = str(cmdFields[0])
     if (len(cmdFields) > 1):
-      jsonFile["run__flow__openroad__commit"] = str(cmdFields[1])
+      metrics_dict["run__flow__openroad__commit"] = str(cmdFields[1])
     else:
-      jsonFile["run__flow__openroad__commit"] = "N/A"
-    jsonFile["run__flow__uuid"] = str(uuid.uuid4())
-    jsonFile["run__flow__design"] = des
-    jsonFile["run__flow__platform"] = plt
-    jsonFile["run__flow__hostname"] = platform.node()
-    metrics_dict["run__flow__tool"] = "OpenROAD"
-    metrics_dict["run__flow__date"] = jsonFile["run__flow__generate__date"]
-    metrics_dict["run__flow__version"] = jsonFile["run__flow__openroad__version"]
-    metrics_dict["run__flow__commit"] = jsonFile["run__flow__openroad__commit"]
-    metrics_dict["run__flow__design"] = jsonFile["run__flow__design"]
-    metrics_dict["run__flow__platform"] = jsonFile["run__flow__platform"]
-    metrics_dict["run__flow__hostname"] = jsonFile["run__flow__hostname"]
-    #SWK
-    metrics_dict["run__input__name"] = jsonFile["run__input__name"]
-    metrics_dict["run__input__target_util"]     = jsonFile["run__input__target_util"]
-    metrics_dict["run__input__target_CP"]       = jsonFile["run__input__target_CP"]
-    metrics_dict["run__input__aspect_ratio"]    = jsonFile["run__input__aspect_ratio"]
-    metrics_dict["run__input__global_padding"]  = jsonFile["run__input__global_padding"]
-    metrics_dict["run__input__detailed_padding"]= jsonFile["run__input__detailed_padding"]
-    metrics_dict["run__input__place_density"]   = jsonFile["run__input__place_density"]
-    metrics_dict["run__input__layer_adjust"]       = jsonFile["run__input__layer_adjust"]
-    metrics_dict["run__input__synth_flatten"] = jsonFile["run__input__synth_flatten"]
-    metrics_dict["run__input__abc_clock"]     = jsonFile["run__input__abc_clock"]
-    metrics_dict["run__input__pins_distance"] = jsonFile["run__input__pins_distance"]
-    metrics_dict["run__input__cts_size"]      = jsonFile["run__input__cts_size"]
-    metrics_dict["run__input__cts_diameter"]  = jsonFile["run__input__cts_diameter"]
-    metrics_dict["run__input__allow_overflow"]= jsonFile["run__input__allow_overflow"]
+      metrics_dict["run__flow__openroad__commit"] = "N/A"
+    metrics_dict["run__flow__uuid"] = str(uuid.uuid4())
+    metrics_dict["run__flow__design"] = design
+    metrics_dict["run__flow__platform"] = platform
+    
 
 # Synthesis
 # ==============================================================================
-# yosys
-    extractTagFromFile("run__synth__yosys__version",
-                       "^Yosys (.*)",
-                       logPath+"/1_1_yosys.log")
-    extractTagFromFile("synth__inst__num__total",
+
+    extractTagFromFile("synth__area__stdcell__count", metrics_dict,
                        "Number of cells: +(\S+)",
-                       rptPath+"/synth_stat.txt", t=int)
-    metrics_dict["synth__inst__num__total"] = jsonFile["synth__inst__num__total"]
-    extractTagFromFile("synth__inst__area__stdcell",
+                       rptPath+"/synth_stat.txt")
+
+    extractTagFromFile("synth__area__stdcell__area", metrics_dict,
                        "Chip area for module.*: +(\S+)",
-                       rptPath+"/synth_stat.txt", t=float)
-    metrics_dict["synth__inst__area__stdcell"] = jsonFile["synth__inst__area__stdcell"]
-    extractTagFromFile("run__synth__yosys__runtime",
-                       "CPU: user (\S+)",
-                       logPath+"/1_1_yosys.log")
-    extractTagFromFile("run__synth__yosys__mem",
-                       "CPU: user.*MEM: (\S+ \S+)",
-                       logPath+"/1_1_yosys.log")
-    extractTagFromFile("run__synth__yosys__warnings",
-                       "Warnings: \d+ unique messages, (\d+) total",
-                       logPath+"/1_1_yosys.log", t=int)
+                       rptPath+"/synth_stat.txt")
 
-    extractGnuTime("run__synth",logPath+"/1_1_yosys.log")
-
+# Clocks
+#===============================================================================
 
     clk_list = read_sdc(resultPath+"/2_floorplan.sdc")
     metrics_dict["constraints__clocks__count"] = len(clk_list)
     metrics_dict["constraints__clocks__details"] = clk_list
 
-
 # Floorplan
 # ==============================================================================
-    extractTagFromFile("floorplan__timing__tns_total",
+
+    extractTagFromFile("floorplan__timing__tns_total", metrics_dict,
                        "^tns (\S+)",
-                       logPath+"/2_1_floorplan.log", t=float)
-    metrics_dict["floorplan__timing__tns_total"] = jsonFile["floorplan__timing__tns_total"]
-
-    extractTagFromFile("floorplan__timing__wns__worst",
-                       "^wns (\S+)",
-                       logPath+"/2_1_floorplan.log", t=float)
-    metrics_dict["floorplan__timing__wns__worst"] = jsonFile["floorplan__timing__wns__worst"]
-
-    metrics_dict["floorplan__timing__tns__regreg"] = "N/A"
-    metrics_dict["floorplan__timing__wns__regreg"] = "N/A"
-    metrics_dict["floorplan__timing__tns__pireg"]= "N/A"
-    metrics_dict["floorplan__timing__wns__pireg"] = "N/A"
-    metrics_dict["floorplan__timing__tns__regpo"] = "N/A"
-    metrics_dict["floorplan__timing__wns__regpo"] = "N/A"
-
-    extractTagFromFile("floorplan__inst__area__stdcell",
-                       "^Design area (\S+) u\^2",
-                       logPath+"/2_1_floorplan.log", t=int)
-    metrics_dict["floorplan__inst__count__stdcell"] = 0
-    metrics_dict["floorplan__inst__area__stdcell"] = jsonFile["floorplan__inst__area__stdcell"]
-
-    extractTagFromFile("floorplan__inst__count__macros",
-                       "Extracted # Macros: (\S+)",
-                       logPath+"/2_4_mplace.log", -1, 0, t=int)
-    metrics_dict["floorplan__inst__count__macros"] = jsonFile["floorplan__inst__count__macros" ]
-
-    metrics_dict["floorplan__inst__area__macros"] = 0 
-    metrics_dict["floorplan__inst__area__total"] = 0 
-    extractTagFromFile("floorplan__inst__count__IO",
-                       "Num of I/O +(\d+)",
-                       logPath+"/3_2_place_iop.log", t=int)
-    metrics_dict["floorplan__inst__count__IO"] = jsonFile["floorplan__inst__count__IO"]
-
-    extractTagFromFile("floorplan__inst__area__util",
-                       "^Design area.* (\S+%) utilization",
                        logPath+"/2_1_floorplan.log")
-    metrics_dict["floorplan__inst__area__util"] = jsonFile["floorplan__inst__area__util"]
 
-    '''
-    extractTagFromFile("run__floorplan__warnings",
-                       "(?i)warning",
-                       logPath+"/2_1_floorplan.log", -2, 0)
-    extractGnuTime("floorplan",logPath+"/2_1_floorplan.log")
+    extractTagFromFile("floorplan__timing__wns__worst", metrics_dict,
+                       "^wns (\S+)",
+                       logPath+"/2_1_floorplan.log", occurrence=0)
 
-    extractGnuTime("run__floorplan_io",logPath+"/2_2_floorplan_io.log")
-    extractGnuTime("run__floorplan_tdms",logPath+"/2_3_tdms_place.log")
+    extractTagFromFile("floorplan__timing__ws__worst", metrics_dict,
+                       "^worst slack (\S+)",
+                       logPath+"/2_1_floorplan.log", occurrence=0)
 
-    extractTagFromFile("macroplace__solutions",
-                       "Total Extracted Solution: (\S+)",
-                       logPath+"/2_4_mplace.log", -1, 0, t=int)
-    extractGnuTime("run__mplace",logPath+"/2_4_mplace.log")
+    extractTagFromFile("floorplan__area__stdcell__count", metrics_dict,
+                       "^Design area (\S+) u\^2",
+                       logPath+"/2_1_floorplan.log")
 
-    extractGnuTime("run__tapcell",logPath+"/2_5_tapcell.log")
+    extractTagFromFile("floorplan__area__instance__util", metrics_dict,
+                       "^Design area.* (\S+)% utilization",
+                       logPath+"/2_1_floorplan.log")
 
-    extractGnuTime("run__pdn",logPath+"/2_6_pdn.log")
-    '''
+    extractTagFromFile("floorplan__area__IO__count", metrics_dict,
+                       "Num of I/O +(\d+)",
+                       logPath+"/3_2_place_iop.log")
 
+    extractTagFromFile("floorplan__area__macros__count", metrics_dict,
+                       "Extracted # Macros: (\S+)",
+                       logPath+"/2_4_mplace.log", defaultNotFound=0)
 
 # Place
 # ==============================================================================
 
-# global place
-    extractTagFromFile("globalplace__density__target",
+    extractTagFromFile("globalplace__area__density__target", metrics_dict,
                        "TargetDensity: (\S+)",
                        logPath+"/3_1_place_gp.log")
-    metrics_dict["globalplace__density__target"] = jsonFile["globalplace__density__target"]
 
-    extractTagFromFile("globalplace__wirelength__est",
+    extractTagFromFile("globalplace__area__wirelength__estimate", metrics_dict,
                        "Total wirelength: (\S+)",
                        logPath+"/3_1_place_gp.log")
-    metrics_dict["globalplace__wirelength__est"] = jsonFile["globalplace__wirelength__est"]
 
-    '''
-    extractTagFromFile("globalplace__slack__average__worst",
-                       "^Worst slack: (\S+)",
-                       logPath+"/3_1_place_gp.log")
-    metrics_dict['place__global__timing__wns'] = jsonFile["globalplace__slack__average__worst"]
+    extractTagFromFile("globalplace__timing__tns__total", metrics_dict,
+                      "^tns (\S+)",
+                      logPath+"/3_1_place_gp.log")
 
-    extractTagFromFile("globalplace__slack__average__totneg",
-                       "^Total negative slack: (\S+)",
-                       logPath+"/3_1_place_gp.log")
-    extractTagFromFile("globalplace__util",
-                       "Util\(%\) = (\S+)",
-                       logPath+"/3_1_place_gp.log")
-    extractGnuTime("run__globalplace",logPath+"/3_1_place_gp.log")
-    '''
+    extractTagFromFile("globalplace__timing__wns__worst", metrics_dict,
+                      "^wns (\S+)",
+                      logPath+"/3_1_place_gp.log")
 
-# Resizer
-    '''
-    extractTagFromFile("resizer__pre__slack__average__totneg",
-                       "^tns (\S+)",
-                       rptPath+"/3_pre_resize.rpt", t=float)
-    extractTagFromFile("resizer__pre__slack__average_worst",
-                       "^wns (\S+)",
-                       rptPath+"/3_pre_resize.rpt", t=float)
-    extractTagFromFile("resizer__pre__core__area__area",
-                       "^Design area (\S+ \S+)",
-                       rptPath+"/3_pre_resize.rpt")
-    extractTagFromFile("resizer__pre__util",
-                       "^Design area.* (\S+%) utilization",
-                       rptPath+"/3_pre_resize.rpt")
-    '''
-    extractTagFromFile("placeopt__buffer__input__count",
+    extractTagFromFile("placeopt__area__inbuffer__count", metrics_dict,
                        "Inserted (\d+) input buffers",
-                       logPath+"/3_3_resizer.log", t=int)
-    metrics_dict["placeopt__buffer__input__count"] = jsonFile["placeopt__buffer__input__count"]
+                       logPath+"/3_3_resizer.log")
 
-    extractTagFromFile("placeopt__buffer__output__count",
+    extractTagFromFile("placeopt__area__outbuffer__count", metrics_dict,
                        "Inserted (\d+) output buffers",
-                       logPath+"/3_3_resizer.log", t=int)
-    metrics_dict["placeopt__buffer__output__count"] = jsonFile["placeopt__buffer__output__count"]
+                       logPath+"/3_3_resizer.log")
 
-
-    extractTagFromFile("placeopt__resize__inst__count",
+    extractTagFromFile("placeopt__area__resize__count", metrics_dict,
                        "Resized (\d+) instances",
-                       logPath+"/3_3_resizer.log", t=int)
-    metrics_dict["placeopt__resize__inst__count"] = jsonFile["placeopt__resize__inst__count"]
+                       logPath+"/3_3_resizer.log")
 
-    '''
-    extractTagFromFile("resizer__hbuf_count",
-                       "Inserted (\d+) hold buffers",
-                       logPath+"/3_3_resizer.log", t=int)
-    metrics_dict["placeopt__buffer__hold__count"] = jsonFile["resizer__hbuf_count"]
-
-    extractTagFromFile("resizer__maxcap_viols",
-                       "Found (\d+) max capacitance violations",
-                       logPath+"/3_3_resizer.log", -1, 0, t=int)
-    extractTagFromFile("resizer__maxslew_viols",
-                       "Found (\d+) max slew violations",
-                       logPath+"/3_3_resizer.log", -1, 0, t=int)
-    extractTagFromFile("resizer__maxfanout_viols",
-                       "Found (\d+) max fanout violations",
-                       logPath+"/3_3_resizer.log", -1, 0, t=int)
-    extractTagFromFile("resizer__maxfanout_bufs",
-                       "Inserted (\d+) buffers",
-                       logPath+"/3_3_resizer.log", -1, 0, t=int)
-    '''
-
-
-#TODO Tie hi tie low
-# extractTagFromFile("resizer_maxfanout_bufs_tielo",
-#                    "Inserted (\d+) tie \S+ instances for \d+ nets",
-#                    logPath+"/3_3_resizer.log", 0, "0")
-# extractTagFromFile("resizer_maxfanout_bufs_tielo",
-#                    "Inserted (\d+) tie \S+ instances for \d+ nets",
-#                    logPath+"/3_3_resizer.log", 1, "0")
-    extractTagFromFile("resizer__post__slack__average__totneg",
+    extractTagFromFile("placeopt__timing__tns__total", metrics_dict,
                        "^tns (\S+)",
-                       logPath+"/3_3_resizer.log", t=float)
-    metrics_dict["placeopt__timing__tns__total"] = jsonFile["resizer__post__slack__average__totneg"]
+                       logPath+"/3_3_resizer.log")
 
-    extractTagFromFile("resizer__post__slack__average__worst",
+    extractTagFromFile("placeopt__timing__wns__worst", metrics_dict,
                        "^wns (\S+)",
-                       logPath+"/3_3_resizer.log", t=float)
-    metrics_dict["placeopt__timing__wns__worst"] = jsonFile["resizer__post__slack__average__worst"]
-
-    extractTagFromFile("resizer__post__core__area__total",
-                       "^Design area (\S+ \S+)",
                        logPath+"/3_3_resizer.log")
-    metrics_dict["placeopt__inst__area__total"] = jsonFile["resizer__post__core__area__total"]
 
-    extractTagFromFile("resizer__post__util",
-                       "^Design area.* (\S+%) utilization",
+    extractTagFromFile("placeopt__timing__ws__worst", metrics_dict,
+                       "^worst slack (\S+)",
                        logPath+"/3_3_resizer.log")
-    metrics_dict["placeopt__inst__area__util"] = jsonFile["resizer__post__util"]
 
-    extractGnuTime("run__resizer",logPath+"/3_3_resizer.log")
+    extractTagFromFile("placeopt__area__instance__area", metrics_dict,
+                       "^Design area (\S+) u\^2",
+                       logPath+"/3_3_resizer.log")
 
+    extractTagFromFile("placeopt__area__instance__util", metrics_dict,
+                       "^Design area.* (\S+)% utilization",
+                       logPath+"/3_3_resizer.log")
 
-# Detail place
-    extractTagFromFile("detailedplace__inst__displacement__total",
+    extractTagFromFile("placeopt__area__instance__count", metrics_dict,
+                       "^instance_count\n-*\n^(\S+)",
+                       logPath+"/3_3_resizer.log")
+
+    extractTagFromFile("detailedplace__timing__tns__total", metrics_dict,
+                       "^tns (\S+)",
+                       logPath+"/3_4_opendp.log")
+
+    extractTagFromFile("detailedplace__timing__wns__worst", metrics_dict,
+                       "^wns (\S+)",
+                       logPath+"/3_4_opendp.log")
+
+    extractTagFromFile("detailedplace__timing__ws__worst", metrics_dict,
+                       "^worst slack (\S+)",
+                       logPath+"/3_4_opendp.log")
+
+    extractTagFromFile("detailedplace__inst__displacement__total", metrics_dict,
                        "total displacement +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__inst__displacement__total"] = jsonFile["detailedplace__inst__displacement__total"]
+                       logPath+"/3_4_opendp.log")
 
-    extractTagFromFile("detailedplace__inst__displacement__average",
+    extractTagFromFile("detailedplace__inst__displacement__average", metrics_dict,
                        "average displacement +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__inst__displacement__average"] = jsonFile["detailedplace__inst__displacement__average"]
+                       logPath+"/3_4_opendp.log")
 
-    extractTagFromFile("detailedplace__inst__displacement__max",
+    extractTagFromFile("detailedplace__inst__displacement__max", metrics_dict,
                        "max displacement +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__inst__displacement__max"] = jsonFile["detailedplace__inst__displacement__max"]
+                       logPath+"/3_4_opendp.log")
 
-    extractTagFromFile("detailedplace__wirelength__initial__estimate",
+    extractTagFromFile("detailedplace__wirelength__initial__estimate", metrics_dict,
                        "original HPWL +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__wirelength__initial__estimate"] = jsonFile["detailedplace__wirelength__initial__estimate"]
+                       logPath+"/3_4_opendp.log")
 
-    extractTagFromFile("detailedplace__wirelength__final__estimate",
+    extractTagFromFile("detailedplace__wirelength__final__estimate", metrics_dict,
                        "legalized HPWL +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__wirelength__final__estimate"] = jsonFile["detailedplace__wirelength__final__estimate"]
-
-    metrics_dict["detailedplace_timing_tns_total"] = "N/A"
-    metrics_dict["detailedplace_timing_wns_worst"] = "N/A"
-
-    '''
-    extractTagFromFile("detailedplace__inst__core__area__total",
-                       "design area +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=float)
-    metrics_dict["detailedplace__inst__area"] = jsonFile["detailedplace__inst__core__area__total"]
-
-    extractTagFromFile("detailedplace__inst__num__total",
-                       "total instances +(\d+)",
-                       logPath+"/3_4_opendp.log", t=int)
-    metrics_dict["detailedplace__inst__count"] = jsonFile["detailedplace__inst__num__total"]
-
-    extractTagFromFile("detailedplace__util",
-                       "utilization +(\d+)",
-                       logPath+"/3_4_opendp.log", t=int)
-    extractTagFromFile("detailedplace__wirelength__est__delta",
-                       "delta HPWL +(\d*\.?\d*)",
-                       logPath+"/3_4_opendp.log", t=int)
-    extractGnuTime("run__dp",logPath+"/3_4_opendp.log")
-    '''
-
-
+                       logPath+"/3_4_opendp.log")
 
 # CTS
-
-    extractTagFromFile("cts__timing__slack__tns",
-                       "^tns (\S+)",
-                       logPath+"/4_1_cts.log", t=float)
-    metrics_dict["cts__timing__tns__total"] = jsonFile["cts__timing__slack__tns"]
-
-    extractTagFromFile("cts__timing__slack__wns",
-                       "^wns (\S+)",
-                       logPath+"/4_1_cts.log", t=float)
-    metrics_dict["cts__timing__wns__worst"] = jsonFile["cts__timing__slack__wns"]
-    metrics_dict["cts__timing__skew__worst"] = 0 
-    metrics_dict["cts__timing__latency__worst"] = 0 
-
-
 # ==============================================================================
-    extractGnuTime("run__cts",logPath+"/4_1_cts.log")
+    
+    latency_max,latency_min,skew = get_skew_latency(logPath+"/4_1_cts.log")
+    #print(f'skew = {skew}, latency_max = {latency_max}, latency_min = {latency_min}')
+    metrics_dict['cts__timing__latency__min'] = latency_min
+    metrics_dict['cts__timing__latency__max'] = latency_max
+    metrics_dict['cts__timing__skew__worst'] = skew
+
+    extractTagFromFile("cts__timing__tns__total", metrics_dict,
+                       "^tns (\S+)",
+                       logPath+"/4_1_cts.log")
+
+    extractTagFromFile("cts__timing__wns__worst", metrics_dict,
+                       "^wns (\S+)",
+                       logPath+"/4_1_cts.log")
+
+    extractTagFromFile("cts__timing__ws__worst", metrics_dict,
+                       "^worst slack (\S+)",
+                       logPath+"/4_1_cts.log")
 
 # Route
 # ==============================================================================
 
-    extractGnuTime("run__globalroute",logPath+"/5_1_fastroute.log")
+    extractTagFromFile("globalroute__timing__tns__total", metrics_dict,
+                      "^tns (\S+)",
+                      logPath+"/5_1_fastroute.log")
 
+    extractTagFromFile("globalroute__timing__wns__worst", metrics_dict,
+                      "^wns (\S+)",
+                      logPath+"/5_1_fastroute.log")
 
-    extractTagFromFile("detailedroute__layers__num__total",
-                       "#layers: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    metrics_dict["detailedroute__layers__count"] = jsonFile["detailedroute__layers__num__total"]
+    extractTagFromFile("globalroute__timing__ws__worst", metrics_dict,
+                      "^worst slack (\S+)",
+                      logPath+"/5_1_fastroute.log")
 
-    extractTagFromFile("detailedroute__wirelength",
+    extractTagFromFile("detailedroute__wirelength", metrics_dict,
                        "total wire length = +(\S+) um",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    metrics_dict["detailedroute__wirelength"] = jsonFile["detailedroute__wirelength"]
+                       logPath+"/5_2_TritonRoute.log")
 
-    extractTagFromFile("detailedroute__via__count",
+    extractTagFromFile("detailedroute__via__count", metrics_dict,
                        "total number of vias = +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    metrics_dict["detailedroute__via__count"] = jsonFile["detailedroute__via__count"]
+                       logPath+"/5_2_TritonRoute.log")
 
-    extractTagFromFile("detailedroute__errors__count",
+    extractTagFromFile("detailedroute__errors__count", metrics_dict,
                        "(?i)error:",
-                       logPath+"/5_2_TritonRoute.log", -2, 0)
-    metrics_dict["detailedroute__errors__count"] = jsonFile["detailedroute__errors__count"]
+                       logPath+"/5_2_TritonRoute.log",
+                       count=True, defaultNotFound=0)
 
-    extractTagFromFile("detailedroute__drc__error__count",
+    extractTagFromFile("detailedroute__drc__error__count", metrics_dict,
                        "(?i)violation",
-                       rptPath+"/5_route_drc.rpt", -2, 0)
-    metrics_dict["detailedroute__drc__error__count"] = jsonFile["detailedroute__drc__error__count"]
+                       rptPath+"/5_route_drc.rpt",
+                       count=True, defaultNotFound=0)
 
-    '''
-    extractTagFromFile("detailedroute__inst__macro__num__total",
-                       "#macros: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__num_vias",
-                       "#vias: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__trackPts",
-                       "trackPts: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__defvias__num__total",
-                       "defvias: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__components__num__total",
-                       "#components: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__terminals__num__total",
-                       "#terminals: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__nets__num__total",
-                       "nets: +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("droute_num_unique_instances",
-                       "#unique instances = +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__unique_instances__num__total",
-                       "#scanned instances += +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=int)
-    extractTagFromFile("detailedroute__runtime",
-                       "Runtime taken \(hrt\): +(\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=float)
-    extractTagFromFile("detailedroute__peak_mem",
-                       "peak = (\S+)",
-                       logPath+"/5_2_TritonRoute.log", t=float)
-
-    extractTagFromFile("detailedroute__warnings",
-                       "(?i)warning:",
-                       logPath+"/5_2_TritonRoute.log", -2, 0)
-    extractGnuTime("run__detailedroute",logPath+"/5_2_TritonRoute.log")
-    '''
-
-    with open("metrics.out", "w") as outFile:
-      json.dump(metrics_dict, outFile, indent=4)
-
-    metrics_df = pd.DataFrame(list(metrics_dict.items()))
-    col_index = metrics_df.iloc[0][1] + "__" + metrics_df.iloc[1][1]
-    metrics_df.columns = ["Metrics", col_index]
-    return metrics_dict, metrics_df
-
-
-# Main
-
-print("List of designs")
-rootdir = './data'
-
-jsonFile = OrderedDict()
-all_metrics_df = pd.DataFrame()
-all_metrics = []
-
-#cwd = os.getcwd()
-for run_it in os.scandir(rootdir):
-    if run_it.is_dir():
-        # Wenbo
-        if not os.path.isdir('%s/logs'%(run_it.path)):
-            continue
-        for plt_it in os.scandir('%s/logs'%(run_it.path)):
-            plt = plt_it.name
-            for design_it in os.scandir('%s/logs/%s'%(run_it.path, plt)):
-                if design_it.is_dir():
-                    des = design_it.name
-                    print(plt,run_it.name)
-                    design_metrics, design_metrics_df = extract_metrics(run_it.path, plt, des)
-                    all_metrics.append(design_metrics)
-                    if all_metrics_df.shape[0] == 0:
-                        all_metrics_df = design_metrics_df
-                    else:
-                        all_metrics_df = all_metrics_df.merge(design_metrics_df, on = 'Metrics', how = 'inner')
-#metrics_json = all_metrics_df.to_json(orient='columns')
-#metrics_json = all_metrics.to_json()
-#print(metrics_json)
-with open("metrics.json", "w") as outFile:
-  json.dump(all_metrics, outFile)
-  #outFile.write(metrics_json)
-#print(all_metrics_df)
-
-#
-# render to html
-#
-all_metrics_df.to_excel('./metrics.xlsx')
-all_metrics_df.to_csv('./metrics.csv', mode='w')
-metrics_html = all_metrics_df.to_html()
-metrics_html_file = open("metrics.html", "w")
-metrics_html_file.write(metrics_html)
-metrics_html_file.close()
-exit()
-
-"""
 # Finish
 # ==============================================================================
 
-extractTagFromFile("finish__power__internal__total",
-                   "Total +(\S+) +\S+ +\S+ +\S+ +\S+",
-                   rptPath+"/6_final_report.rpt", t=float)
+    extractTagFromFile("finish__power__internal__total", metrics_dict,
+                       "Total +(\S+) +\S+ +\S+ +\S+ +\S+",
+                       logPath+"/6_report.log")
 
-extractTagFromFile("finish__power__switch__total",
-                   "Total +\S+ +(\S+) +\S+ +\S+ +\S+",
-                   rptPath+"/6_final_report.rpt", t=float)
+    extractTagFromFile("finish__power__switch__total", metrics_dict,
+                       "Total +\S+ +(\S+) +\S+ +\S+ +\S+",
+                       logPath+"/6_report.log")
 
-extractTagFromFile("finish__power__leak__total",
-                   "Total +\S+ +\S+ +(\S+) +\S+ +\S+",
-                   rptPath+"/6_final_report.rpt", t=float)
+    extractTagFromFile("finish__power__leak__total", metrics_dict,
+                       "Total +\S+ +\S+ +(\S+) +\S+ +\S+",
+                       logPath+"/6_report.log")
 
-extractTagFromFile("finish__power__total",
-                   "Total +\S+ +\S+ +\S+ +(\S+) +\S+",
-                   rptPath+"/6_final_report.rpt", t=float)
+    extractTagFromFile("finish__power__total", metrics_dict,
+                       "Total +\S+ +\S+ +\S+ +(\S+) +\S+",
+                       logPath+"/6_report.log")
 
-extractTagFromFile("finish__area",
-                   "^Design area (\S+ \S+)",
-                   rptPath+"/6_final_report.rpt")
-extractTagFromFile("finish__util",
-                   "^Design area.* (\S+%) utilization",
-                   rptPath+"/6_final_report.rpt")
+    extractTagFromFile("finish__area", metrics_dict,
+                      "^Design area (\S+) u\^2",
+                       logPath+"/6_report.log")
 
-extractGnuTime("run__report",logPath+"/6_report.log")
-
-extractGnuTime("run__merge",logPath+"/6_1_merge.log")
-
-
-extractTagFromFile("drc_klayout_viols",
-                   "<value>",
-                   rptPath+"/6_drc_count.rpt", -2, 0, t=int)
-
+    extractTagFromFile("finish__util", metrics_dict,
+                      "^Design area.* (\S+)% utilization",
+                       logPath+"/6_report.log")
 
 # Accumulate time
 # ==============================================================================
 
-failed = False
-total = datetime.timedelta()
-for key in jsonFile:
-  if key.endswith("_time"):
-    # Big try block because Hour and microsecond is optional
-    try:
-      t = datetime.datetime.strptime(jsonFile[key],"%H:%M:%S.%f")
-    except ValueError:
-      try:
-        t = datetime.datetime.strptime(jsonFile[key],"%M:%S.%f")
-      except ValueError:
+    failed = False
+    total = datetime.timedelta()
+    for key in metrics_dict:
+      if key.endswith("_time"):
+        # Big try block because Hour and microsecond is optional
         try:
-          t = datetime.datetime.strptime(jsonFile[key],"%H:%M:%S")
+          t = datetime.datetime.strptime(metrics_dict[key],"%H:%M:%S.%f")
         except ValueError:
           try:
-            t = datetime.datetime.strptime(jsonFile[key],"%M:%S")
+            t = datetime.datetime.strptime(metrics_dict[key],"%M:%S.%f")
           except ValueError:
-            failed = True
-            break
+            try:
+              t = datetime.datetime.strptime(metrics_dict[key],"%H:%M:%S")
+            except ValueError:
+              try:
+                t = datetime.datetime.strptime(metrics_dict[key],"%M:%S")
+              except ValueError:
+                failed = True
+                break
 
-    delta = datetime.timedelta(hours=t.hour, minutes=t.minute, seconds=t.second)
-    total += delta
+        delta = datetime.timedelta(hours=t.hour, minutes=t.minute, seconds=t.second)
+        total += delta
 
-print("Total = ", total)
-print(jsonFile)
-if failed:
-  jsonFile["total_time"] = "ERR"
+    if failed:
+      metrics_dict["total_time"] = "ERR"
+    else:
+      metrics_dict["total_time"] = str(total)
+
+    with open(output, "w") as resultSpecfile:
+        json.dump(metrics_dict, resultSpecfile, indent=2)
+
+    metrics_df = pd.DataFrame(list(metrics_dict.items()))
+    col_index = metrics_df.iloc[0][1] + "__" + metrics_df.iloc[1][1]
+    metrics_df.columns = ["Metrics", col_index]
+
+    return metrics_dict, metrics_df
+
+
+args = parse_args()
+now = datetime.datetime.now()
+
+if args.design == "all_designs":
+    print("List of designs")
+    rootdir = './data'
+
+    all_metrics_df = pd.DataFrame()
+    all_metrics = []
+
+    cwd = os.getcwd()
+
+    for run_it in os.scandir(rootdir):
+        if run_it.is_dir():
+            run = run_it.name
+            if not os.path.isdir('%s/logs'%(run_it.path)):
+                continue
+            for platform_it in os.scandir('%s/logs'%(run_it.path)):
+                if platform_it.is_dir():
+                    plt = platform_it.name
+                    for design_it in os.scandir(platform_it.path):
+                        if design_it.is_dir():
+                            des = design_it.name
+                            print(run,plt,des)
+                            design_metrics, design_metrics_df = extract_metrics(run_it.path, plt, des,
+                                                os.path.join(run_it.path, "reports", plt, des, "metrics.json"))
+                            all_metrics.append(design_metrics)
+                            if all_metrics_df.shape[0] == 0:
+                                all_metrics_df = design_metrics_df
+                            else:
+                                all_metrics_df = all_metrics_df.merge(design_metrics_df,
+                                                            on = 'Metrics', how = 'inner')
+#
+# render to json and html
+#
+    with open("metrics.json", "w") as outFile:
+        json.dump(all_metrics, outFile)
+    metrics_html = all_metrics_df.to_html()
+    metrics_html_file = open("metrics.html", "w")
+    metrics_html_file.write(metrics_html)
+    metrics_html_file.close()
 else:
-  jsonFile["total_time"] = str(total)
-
-print(jsonFile["detailedplace__wirelength__est__legalized"])
-#print json.dumps(jsonFile, indent=2)
-#with open(args.output, "w") as resultSpecfile:
-with open("metrics.out", "w") as outFile:
-  outFile.write(json.dumps(metrics_dict))
-"""
+    metrics_dict, metrics_df = extract_metrics(args.flowPath, args.platform, args.design, args.output)
