@@ -503,6 +503,8 @@ if args.design == "all_designs":
 #
     with open("metrics.json", "w") as outFile:
         json.dump(all_metrics, outFile)
+    all_metrics_df.to_excel('./metrics.xlsx')
+    all_metrics_df.to_csv('./metrics.csv', mode='w')
     metrics_html = all_metrics_df.to_html()
     metrics_html_file = open("metrics.html", "w")
     metrics_html_file.write(metrics_html)
