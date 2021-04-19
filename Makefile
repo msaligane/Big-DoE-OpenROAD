@@ -576,10 +576,15 @@ include $(UTILS_DIR)/utils.mk
 export PRIVATE_DIR = ../../private_tool_scripts
 -include $(PRIVATE_DIR)/util/utils.mk
 
-
 clean_doe:
-	rm -rf  ./data 
+	rm -rf  ./data
 	rm -rf ./designs/*/*parallel*
 	rm -rf ./*/process*
 	rm -f Makefile_process*
 	rm -rf ./doe_reports
+	rm -f ./platforms/sky130hd/config_*
+	rm -f ./platforms/sky130hs/config_*
+	rm -f ./platforms/sky130hs/fastroute_*
+	rm -f ./platforms/sky130hd/fastroute_*
+	rm -f $(SCRIPTS_DIR)/cts_*.tcl $(SCRIPTS_DIR)/synth_*.tcl $(SCRIPTS_DIR)/global_route_*.tcl
+	rm -f doe.log

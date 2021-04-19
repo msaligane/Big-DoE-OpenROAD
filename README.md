@@ -36,10 +36,16 @@ The genMetrics_bigDoE.py script extracts tns/wns/power values from designs' repo
 A clean_doe taget is added at the end of the Makefile to delete files/folders from the previous runs
 ```
 clean_doe:
-	rm -rf  ./data 
-	rm -rf ./designs/*/*parallel*
-	rm -rf ./*/process*
-	rm -f Makefile_process*
-	rm -rf ./doe_reports
+    rm -rf  ./data
+    rm -rf ./designs/*/*parallel*
+    rm -rf ./*/process*
+    rm -f Makefile_process*
+    rm -rf ./doe_reports
+    rm -f ./platforms/sky130hd/config_*
+    rm -f ./platforms/sky130hs/config_*
+    rm -f ./platforms/sky130hs/fastroute_*
+    rm -f ./platforms/sky130hd/fastroute_*
+    rm -f $(SCRIPTS_DIR)/cts_*.tcl $(SCRIPTS_DIR)/synth_*.tcl $(SCRIPTS_DIR)/global_route_*.tcl
+    rm -f doe.log
 ```
 
