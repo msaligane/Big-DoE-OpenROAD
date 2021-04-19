@@ -16,26 +16,12 @@ from scipy.stats.distributions import norm, uniform, truncnorm
 # Sweeping attributes
 ################################
 
-SWEEPING_ATTRS = ["CLK_PERIOD", "CORE_UTILIZATION", "ASPECT_RATIO", "GP_PAD", "DP_PAD", \
-                  "LAYER_ADJUST", "PLACE_DENSITY", "FLATTEN", "ABC_CLOCK_PERIOD", \
-                  "PINS_DISTANCE", "CTS_CLUSTER_SIZE", "CTS_CLUSTER_DIAMETER", "GR_OVERFLOW"]
+# SWEEPING_ATTRS = ["CLK_PERIOD", "CORE_UTILIZATION", "ASPECT_RATIO", "GP_PAD", "DP_PAD", \
+#                   "LAYER_ADJUST", "PLACE_DENSITY", "FLATTEN", "ABC_CLOCK_PERIOD", \
+#                   "PINS_DISTANCE", "CTS_CLUSTER_SIZE", "CTS_CLUSTER_DIAMETER", "GR_OVERFLOW", \
+#                   "LAYER_ADJUST_met1", "LAYER_ADJUST_met2"]
 
 # The CLK_PERIOD is in ns for sky130, while the ABC_CLOCK_PERIOD is in ps
-VALUE_TYPE = {
-    "CLK_PERIOD": "float 4",
-    "CORE_UTILIZATION": "int",
-    "ASPECT_RATIO": "float 3",
-    "GP_PAD": "int",
-    "DP_PAD": "int",
-    "LAYER_ADJUST": "float 1",
-    "PLACE_DENSITY": "float 2",
-    "FLATTEN": "int",
-    "ABC_CLOCK_PERIOD": "float 1",
-    "PINS_DISTANCE": "int",
-    "CTS_CLUSTER_SIZE": "int",
-    "CTS_CLUSTER_DIAMETER": "int",
-    "GR_OVERFLOW": "int"
-}
 # PLACE_DENSITY is automatically added later
 
 ################################
@@ -57,16 +43,38 @@ LHS_ATTRS = {
     "ASPECT_RATIO":         ['uniform', 0.7, 1],
     "GP_PAD":               ['uniform', 0, 4],
     "DP_PAD":               ['uniform', 0, 4],
-    "LAYER_ADJUST":         ['uniform', 0.1, 0.7],
-    "PLACE_DENSITY":        ['uniform', 0.1, 1.0],
+    "PLACE_DENSITY":        ['uniform', 0.7, 1.0],
     "FLATTEN":              ['uniform', 0, 1],
     "ABC_CLOCK_PERIOD":     ['uniform', 5000, 5000],
     "PINS_DISTANCE":        ['uniform', 1, 3],
     "CTS_CLUSTER_SIZE":     ['uniform', 10, 40],
     "CTS_CLUSTER_DIAMETER": ['uniform', 80, 120],
-    "GR_OVERFLOW":          ['uniform', 1, 1]
+    "GR_OVERFLOW":          ['uniform', 1, 1],
+
+    "LAYER_ADJUST":         ['uniform', 0.1, 0.7],
+    "LAYER_ADJUST_met1":    ['uniform', 0.2, 0.4],
+    "LAYER_ADJUST_met2":    ['uniform', 0.5, 0.6],
 }
 LHS_SAMPLES = 5000
+
+
+
+SWEEPING_ATTRS = LHS_ATTRS.keys()
+VALUE_TYPE = {
+    "CLK_PERIOD": "float 4",
+    "CORE_UTILIZATION": "int",
+    "ASPECT_RATIO": "float 3",
+    "GP_PAD": "int",
+    "DP_PAD": "int",
+    "LAYER_ADJUST": "float 1",
+    "PLACE_DENSITY": "float 2",
+    "FLATTEN": "int",
+    "ABC_CLOCK_PERIOD": "float 1",
+    "PINS_DISTANCE": "int",
+    "CTS_CLUSTER_SIZE": "int",
+    "CTS_CLUSTER_DIAMETER": "int",
+    "GR_OVERFLOW": "int"
+}
 
 ################################
 # Design platform
@@ -162,7 +170,6 @@ DP_PAD_STEP = 2
 
 
 
-
 ################################
 # Fastroute
 ################################
@@ -212,13 +219,16 @@ if _use_lhs:
           lhs_knobs[:, idx] = truncnorm.ppf(lhd[:, idx], a=left_shift, b=right_shift, loc=LHS_ATTRS[lhs_attr][3], scale=LHS_ATTRS[lhs_attr][4])
         elif LHS_ATTRS[lhs_attr][0] == 'norm':
           lhs_knobs[:, idx] = norm(loc=LHS_ATTRS[lhs_attr][1], scale=LHS_ATTRS[lhs_attr][2]).ppf(lhd[:, idx])
-        
-        value_type = VALUE_TYPE[lhs_attr].split()
-        precision = 0
-        if value_type[0] == "int":
+       
+        try: 
+          value_type = VALUE_TYPE[lhs_attr].split()
+          precision = 0
+          if value_type[0] == "int":
             precision = 0
-        elif value_type[0] == "float":
+          elif value_type[0] == "float":
             precision = int(value_type[1])
+        except:
+          precision = 1
         lhs_knobs[:, idx] = np.around(lhs_knobs[:, idx], decimals = precision)
             
 # Create non-LHS samples
@@ -335,14 +345,21 @@ while knob_iter < len(knobs_list):
         cell_pad_in_sites_global_placement = knobs[attrs_names.index("GP_PAD")]
         cell_pad_in_sites_detail_placement = knobs[attrs_names.index("DP_PAD")]
         place_density = knobs[attrs_names.index("PLACE_DENSITY")]
-        layer_adjustment = knobs[attrs_names.index("LAYER_ADJUST")]
         flatten = knobs[attrs_names.index("FLATTEN")]
         abc_clock_period_in_ps = knobs[attrs_names.index("ABC_CLOCK_PERIOD")]
         pins_distance = knobs[attrs_names.index("PINS_DISTANCE")]
         cts_cluster_size = knobs[attrs_names.index("CTS_CLUSTER_SIZE")]
         cts_cluster_diameter = knobs[attrs_names.index("CTS_CLUSTER_DIAMETER")]
         gr_overflow = knobs[attrs_names.index("GR_OVERFLOW")]
-
+        
+        layer_adjustment = knobs[attrs_names.index("LAYER_ADJUST")]
+        sep_layer_adjustments = []
+        for key in attrs_names:
+          layer_adjustment_re = re.search("LAYER_ADJUST_\w+", key)
+          if layer_adjustment_re:
+            vars()[layer_adjustment_re.group(0)] = knobs[attrs_names.index(layer_adjustment_re.group(0))]
+            sep_layer_adjustments.append(layer_adjustment_re.group(0))
+        
         core_margin = CORE_DIE_MARGIN
 
         # Create parallel fastroute scripts
@@ -351,19 +368,30 @@ while knob_iter < len(knobs_list):
           _platform_fastroute = True
           with open("./platforms/" + PLATFORM + "/fastroute.tcl", "r") as rf:
             filedata = rf.read()
+          gr_target_file = "./platforms/" + PLATFORM + "/fastroute_{:.1f}".format(layer_adjustment)
           filedata = re.sub("(set_global_routing_layer_adjustment .* )[0-9\.]+", "\g<1>{:.1f}".format(layer_adjustment), filedata)
+          sep_la_cmds = ""
+          sep_la_combs = ""
+          for sep_la in sep_layer_adjustments:
+            layer_name = sep_la.split("_")[-1]
+            sep_la_cmds += "set_global_routing_layer_adjustment " + layer_name + " {:.1f}\n".format(vars()[sep_la])
+            sep_la_combs += "_%s_%.1f" % (layer_name, vars()[sep_la])  
+          gr_target_file = gr_target_file + sep_la_combs
+          filedata = re.sub("set_global_routing_layer_adjustment.*\n", "\g<0>"+sep_la_cmds, filedata)
           if int(gr_overflow) == 1:
-              filedata = re.sub("(global_route(\s+.*\n)*.*)", "\g<1>  -allow_overflow", filedata)
-          with open("./platforms/" + PLATFORM + "/fastroute_{:.1f}_allow_overflow_{:.0f}.tcl".format(layer_adjustment, gr_overflow), "w") as wf:
+              filedata = re.sub("(global_route.*(\n\s+.*)*)", "\g<1> \\\n             -allow_overflow", filedata)
+              gr_target_file = gr_target_file + "_allow_overflow_{:.0f}".format(gr_overflow)
+          gr_target_file = gr_target_file + ".tcl"
+          with open(gr_target_file, "w") as wf:
             wf.write(filedata)
 
         # Config.mk in platforms
         with open("./platforms/" + PLATFORM + "/" + PLATFORM_CONFIG, "r") as rf:
             filedata = rf.read()
-        filedata = re.sub("\n(export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT = ).*", "\n\g<1>{:.0f}".format(cell_pad_in_sites_global_placement), filedata)
-        filedata = re.sub("\n(export CELL_PAD_IN_SITES_DETAIL_PLACEMENT = ).*", "\n\g<1>{:.0f}".format(cell_pad_in_sites_detail_placement), filedata)
-        filedata = re.sub("\n(export FASTROUTE_TCL .*fastroute).*", "\n\g<1>_{:.1f}_allow_overflow_{:.0f}.tcl".format(layer_adjustment, gr_overflow), filedata)
-        with open("./platforms/" + PLATFORM + "/" + PLATFORM_CONFIG[0:-3] + "_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow), "w") as wf:
+        filedata = re.sub("\n(export CELL_PAD_IN_SITES_GLOBAL_PLACEMENT ?= ).*", "\n\g<1>{:.0f}".format(cell_pad_in_sites_global_placement), filedata)
+        filedata = re.sub("\n(export CELL_PAD_IN_SITES_DETAIL_PLACEMENT ?= ).*", "\n\g<1>{:.0f}".format(cell_pad_in_sites_detail_placement), filedata)
+        filedata = re.sub("\n(export FASTROUTE_TCL\s+=).*", "\n\g<1> " + gr_target_file, filedata)
+        with open("./platforms/" + PLATFORM + "/" + PLATFORM_CONFIG[0:-3] + "_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}{}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, sep_la_combs, gr_overflow), "w") as wf:
             wf.write(filedata)
 
         # design folder 
@@ -392,7 +420,6 @@ while knob_iter < len(knobs_list):
         with open("./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process) + "/config.mk", "w") as wf:
             wf.write(filedata)
 
-
         # scripts files:
         with open("./scripts/synth.tcl", "r") as rf:
             filedata = rf.read()
@@ -403,10 +430,9 @@ while knob_iter < len(knobs_list):
 
         with open("./scripts/io_placement.tcl", "r") as rf:
             filedata = rf.read()
-        filedata = re.sub("(io_placer.*\n(\s+).*\n)", "\g<1>\g<2>-min_distance {:.0f}\n".format(pins_distance), filedata)
+        filedata = re.sub("(place_pins.*\n(\s+).*\n)", "\g<1>\g<2>-min_distance {:.0f}\n".format(pins_distance), filedata)
         with open("./scripts/io_placement_{:.0f}.tcl".format(pins_distance), "w") as wf:
             wf.write(filedata)
-
         
         with open("./scripts/cts.tcl", "r") as rf:
             filedata = rf.read()
@@ -414,7 +440,6 @@ while knob_iter < len(knobs_list):
         filedata = re.sub("(set cluster_diameter)\s+\d+", "\g<1> {:.0f}".format(cts_cluster_diameter), filedata)
         with open("./scripts/cts_size_{:.0f}_diameter_{:.0f}.tcl".format(cts_cluster_size, cts_cluster_diameter), "w") as wf:
             wf.write(filedata)
-
 
         if PLATFORM_CONFIG != "config.mk":
           with open(PLATFORM_DIR + "/config.mk", "r") as rf:
@@ -430,7 +455,7 @@ while knob_iter < len(knobs_list):
         filedata = re.sub("logs", "logs/process" + str(process), filedata)
         filedata = re.sub("objects", "objects/process" + str(process), filedata)
         filedata = re.sub("reports", "reports/process" + str(process), filedata)
-        filedata = re.sub("include \$\(PLATFORM_DIR\)\/config.*", "include $(PLATFORM_DIR)/config_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow), filedata)
+        filedata = re.sub("include \$\(PLATFORM_DIR\)\/config.*", "include $(PLATFORM_DIR)/config_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}{}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, sep_la_combs, gr_overflow), filedata)
         filedata = re.sub("\ndefault: finish", "\nDESIGN_CONFIG = ./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process) + "/config.mk\ndefault: finish", filedata)
         filedata = re.sub("synth\.tcl", "synth_{:.0f}.tcl".format(flatten), filedata)
         filedata = re.sub("io_placement\.tcl", "io_placement_{:.0f}.tcl".format(pins_distance), filedata)
@@ -460,7 +485,6 @@ while knob_iter < len(knobs_list):
         for p in processes:
           p.join()
     
-    
     for process in range(current_process_num):
         knobs = knobs_list[knob_iter + process]
         clock = knobs[attrs_names.index("CLK_PERIOD")]
@@ -477,7 +501,15 @@ while knob_iter < len(knobs_list):
         cts_cluster_diameter = knobs[attrs_names.index("CTS_CLUSTER_DIAMETER")]
         gr_overflow = knobs[attrs_names.index("GR_OVERFLOW")]
         
-        target_folder = "data/" + DESIGN + "_CORE_UTILIZATION_{:.2f}_CLOCK_{:.4f}_ASRATIO_{:.2f}_GPPAD_{:.0f}_DPPAD_{:.0f}_PLACE_DENSITY_{:.2f}_LAYER_ADJUST_{:.1f}_FLATTEN_{:.0f}_ABC_CLOCK_{:.1f}_PINS_DISTANCE_{:.0f}_CTS_SIZE_{:.0f}_CTS_DIAMETER_{:.0f}_ALLOW_OVERFLOW_{:.0f}".format(core_utilization, clock, core_aspect_ratio, cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, place_density, layer_adjustment, flatten, abc_clock_period_in_ps, pins_distance, cts_cluster_size, cts_cluster_diameter, gr_overflow)
+        sep_layer_adjustments = []
+        sep_la_names = ""
+        for key in attrs_names:
+          layer_adjustment_re = re.search("LAYER_ADJUST_(\w+)", key)
+          if layer_adjustment_re:
+            vars()[layer_adjustment_re.group(0)] = knobs[attrs_names.index(layer_adjustment_re.group(0))]
+            sep_la_names += "_{}_{:.1f}".format(layer_adjustment_re.group(1), vars()[layer_adjustment_re.group(0)])
+        
+        target_folder = "data/" + DESIGN + "_CORE_UTILIZATION_{:.2f}_CLOCK_{:.4f}_ASRATIO_{:.2f}_GPPAD_{:.0f}_DPPAD_{:.0f}_PLACE_DENSITY_{:.2f}_LAYER_ADJUST_{:.1f}{}_FLATTEN_{:.0f}_ABC_CLOCK_{:.1f}_PINS_DISTANCE_{:.0f}_CTS_SIZE_{:.0f}_CTS_DIAMETER_{:.0f}_ALLOW_OVERFLOW_{:.0f}".format(core_utilization, clock, core_aspect_ratio, cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, place_density, layer_adjustment, sep_la_names, flatten, abc_clock_period_in_ps, pins_distance, cts_cluster_size, cts_cluster_diameter, gr_overflow)
 
         os.mkdir(target_folder)
         
@@ -489,8 +521,8 @@ while knob_iter < len(knobs_list):
         
         shutil.move("./designs/" + PLATFORM + "/" + DESIGN + "_parallel/process" + str(process), target_folder + "/design")
         shutil.move("Makefile_process" + str(process), target_folder + "/Makefile")
-
-        shutil.copyfile("./platforms/" + PLATFORM + "/" + PLATFORM_CONFIG[0:-3] + "_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow), target_folder + "/" + PLATFORM_CONFIG[0:-3] + "_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow))
-        shutil.copyfile("./platforms/" + PLATFORM + "/" + "config_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow), target_folder + "/config_gppad_{:.0f}_dppad_{:.0f}_FR_{:.1f}_ALLOW_OVERFLOW_{:.0f}.mk".format(cell_pad_in_sites_global_placement, cell_pad_in_sites_detail_placement, layer_adjustment, gr_overflow))
+        
+        for mk_file in glob.glob("./platforms/" + PLATFORM + "/*.mk"):
+          shutil.copy2(mk_file, target_folder)
     
     knob_iter += current_process_num
