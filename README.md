@@ -24,6 +24,13 @@ LAYER_ADJUST 		- fastroute.tcl in platforms
 GR_OVERFLOW 		- fastroute.tcl in platforms
 ```
 
+Different adjustment values can be applied to separate layers in **LHS_ATTRS** in the following way:
+```
+"LAYER_ADJUST":         ['uniform', 0.1, 0.7],    - default range
+"LAYER_ADJUST_met1":    ['uniform', 0.2, 0.4],    - range for met1 only
+"LAYER_ADJUST_met2":    ['uniform', 0.5, 0.6],    - range for met2 only
+```
+
 The genMetrics_bigDoE.py script extracts tns/wns/power values from designs' reports swept by run_design.py. The Big-DOE-plots.ipynb is used to plot figures/distributions within Jupyter Notebook.
 
 A clean_doe taget is added at the end of the Makefile to delete files/folders from the previous runs
